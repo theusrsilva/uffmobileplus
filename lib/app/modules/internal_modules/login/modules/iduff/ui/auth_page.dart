@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/controller/auth_controller.dart';
+import 'package:uffmobileplus/app/utils/color_pallete.dart';
+import 'package:uffmobileplus/app/utils/ui_components/custom_progress_display.dart';
+
+class AuthPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GetBuilder<AuthController>(
+        init: AuthController(),
+        builder: (_) => Container(
+          color: AppColors.lightBlue(),
+          child: const Center(child: CustomProgressDisplay()),
+        ),
+      ),
+    );
+  }
+}

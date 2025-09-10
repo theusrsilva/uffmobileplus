@@ -1,0 +1,236 @@
+# Miscellaneous
+*.class
+*.lock
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.classpath
+.project
+.settings/
+.vscode/
+
+# Security & Environment Files
+.env*
+config.json
+secrets.json
+credentials.json
+service-account*.json
+firebase-adminsdk*.json
+google-services.json
+GoogleService-Info.plist
+
+# API Keys & Tokens
+api_keys.txt
+*.pem
+*.p12
+*.pfx
+client_secret*.json
+oauth_token.json
+
+# Database & Cache
+*.db
+*.sqlite
+*.sqlite3
+cache/
+.cache/
+
+# Certificates & Keys
+*.crt
+*.cer
+*.key
+*.cert
+*.p8
+*.mobileprovision
+
+# Flutter repo-specific
+/bin/cache/
+/bin/internal/bootstrap.bat
+/bin/internal/bootstrap.sh
+/bin/mingit/
+/dev/benchmarks/mega_gallery/
+/dev/bots/.recipe_deps
+/dev/bots/android_tools/
+/dev/devicelab/ABresults*.json
+/dev/docs/doc/
+/dev/docs/flutter.docs.zip
+/dev/docs/lib/
+/dev/docs/pubspec.yaml
+/dev/integration_tests/**/xcuserdata
+/dev/integration_tests/**/Pods
+/packages/flutter/coverage/
+version
+analysis_benchmark.json
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+.vscode/settings.json
+key.jks
+international.json
+.gradle/6.7/gc.properties
+.gradle/6.7/fileChanges/last-build.bin
+.gradle/6.7/fileHashes/fileHashes.lock
+.gradle/checksums/checksums.lock
+.gradle/configuration-cache/gc.properties
+.gradle/vcs-1/gc.properties
+android/gradle/wrapper/gradle-wrapper.properties
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# macOS
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Coverage
+coverage/
+
+# Symbols
+app.*.symbols
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!/dev/ci/**/Gemfile.lo
+
+# FVM Version Cache
+.fvm/
+
+# Additional Security Files
+*.keystore
+*.jks
+key.properties
+**/android/key.properties
+**/android/app/upload-keystore.jks
+**/android/fastlane/report.xml
+**/android/fastlane/Preview.html
+**/android/fastlane/screenshots
+**/android/fastlane/test_output
+**/android/signing/
+
+# Sensitive Configuration Files
+local.properties
+.flutter-plugins-dependencies.lock
+release.properties
+debug.properties
+
+# Build artifacts with potential sensitive data
+**/build/outputs/apk/
+**/build/outputs/bundle/
+**/build/outputs/mapping/
+**/android/app/build/outputs/
+**/ios/Runner/GoogleService-Info.plist
+**/ios/GoogleService-Info.plist
+
+# Firebase & Google Services
+google-services.json
+GoogleService-Info.plist
+firebase-debug.log
+firebase.json
+.firebaserc
+
+# Debugging & Logging
+*.log
+logs/
+debug.log
+error.log
+flutter_*.log
+
+# IDE specific files that might contain sensitive data
+.vscode/launch.json
+.vscode/tasks.json
+.idea/workspace.xml
+.idea/misc.xml
+.idea/modules.xml
+
+# Test files that might contain sensitive data
+test_credentials.json
+test_config.json
+mock_data.json
+
+# Documentation with potential sensitive info
+TODO.md
+NOTES.md
+CREDENTIALS.md
+
+# Application secrets and sensitive configuration
+lib/app/config/secrets.dart
