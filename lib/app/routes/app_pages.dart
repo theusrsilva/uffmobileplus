@@ -19,25 +19,23 @@ abstract class AppPages {
     GetPage(
       name: Routes.SPLASH,
       page: () => SplashPage(),
-      binding: SplashBinding(),
+      bindings: [SplashBinding(), LockDevelopModeBinding(), AuthBinding(), UserBindings()],
     ),
 
     GetPage(
       name: Routes.YOU_SHALL_NOT_PASS,
       page: () => LockDevelopModePage(),
-      binding: LockDevelopModeBinding(),
     ),
 
     GetPage(
       name: Routes.LOGIN,
       page: () => LoginPage(),
-      bindings: [LoginBinding(), AuthBinding()],
+      bindings: [LoginBinding()],
     ),
 
     GetPage(
       name: Routes.AUTH,
       page: () => AuthPage(),
-      bindings: [AuthBinding(), UserBindings()],
     ),
 
     GetPage(

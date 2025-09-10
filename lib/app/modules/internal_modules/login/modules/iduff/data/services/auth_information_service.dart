@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/repository/auth_information_repository.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/services/auth.dart';
 
 class AuthInformationService extends GetxService {
   final AuthInformationRepository _authInformationRepository =
-      AuthInformationRepository();
+      Get.find<AuthInformationRepository>();
+      
+    Auth get _auth => Get.find<Auth>();
 
   AuthInformationService() {
     debugPrint("Creating Auth Information Service");
@@ -57,5 +60,9 @@ class AuthInformationService extends GetxService {
 
   Future<String?> getIduff() {
     return _authInformationRepository.getIduff();
+  }
+
+  Future<bool> tryLogin() async {
+    return await _auth.tryLogin();
   }
 }

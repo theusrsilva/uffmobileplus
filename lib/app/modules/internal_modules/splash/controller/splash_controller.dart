@@ -10,6 +10,7 @@ class SplashController extends GetxController {
   final SplashService _splashService = Get.find<SplashService>();
 
   bool _isDevMode = false;
+  bool _tryLogin = false;
 
   @override
   Future<void> onReady() async {
@@ -17,12 +18,18 @@ class SplashController extends GetxController {
     animatedMargin = 80.0;
 
     _isDevMode = await _splashService.checkDevMode();
+    _tryLogin = await _splashService.tryLogin();
 
     if (_isDevMode && !kDebugMode) {
       Get.offAllNamed(Routes.YOU_SHALL_NOT_PASS);
     } else {
-      await Future.delayed(Duration(seconds: 3));
-      Get.offAllNamed(Routes.LOGIN);
+      if (_tryLogin) {
+        debugPrint("Auto Login successful");
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        debugPrint("Auto Login failed");
+        Get.offAllNamed(Routes.LOGIN);
+      }
     }
 
     update();
