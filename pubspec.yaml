@@ -27,6 +27,7 @@ dependencies:
   build_runner: ^2.4.13
   hive_flutter: ^1.1.0
   persistent_bottom_nav_bar: ^6.2.1
+  flutter_svg: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -42,3 +43,4 @@ flutter:
     - assets/images/
     - assets/logos/
     - assets/animations/
+    - assets/icons/
