@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/online_turnstile/ui/online_turnstile_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_binding.dart';
@@ -48,6 +50,16 @@ abstract class AppPages {
       name: Routes.HOME,
       page: () => HomePage(),
       binding: HomePageBinding(),
+    ),
+
+    //Restaurante
+    GetPage(
+      name: Routes.RESTAURANT_MODULES,
+      page: () => RestaurantModulesPage(),
+    ),
+    GetPage(
+      name: Routes.ONLINE_TURNSTILE,
+      page: () => OnlineTurnstilePage(),
     ),
   ];
 }

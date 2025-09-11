@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
-class ExternalModulesController extends GetxController {
+class RestaurantModulesController extends GetxController {
 
-  ExternalModulesController();
+  RestaurantModulesController();
 
-  List<ExternalModules> externalModulesList = [
-    ExternalModules(
-        iconSrc: 'assets/icons/bandejapp.svg',
-        subtitle: 'Restaurante',
-        page: Routes.RESTAURANT_MODULES,
+  List<RestaurantModules> restaurantModulesList = [
+    RestaurantModules(
+        iconSrc: 'assets/icons/validator_qr_code.svg',
+        subtitle: 'Catraca-Online',
+        page: Routes.ONLINE_TURNSTILE,
         url: '',
         interrogation: false,
         //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
@@ -34,7 +34,7 @@ class ExternalModulesController extends GetxController {
 
 }
 
-class ExternalModules {
+class RestaurantModules {
   //final List<ProfileTypes> availableFor;
   final String iconSrc;
   final String subtitle;
@@ -43,7 +43,7 @@ class ExternalModules {
   final bool? interrogation;
   //final List<GdiGroups>? gdiGroups;
 
-  const ExternalModules(
+  const RestaurantModules(
       {
         //required this.availableFor,
       required this.iconSrc,

@@ -1,3 +1,5 @@
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/controller/restaurant_modules_controller.dart';
+
 abstract class Routes {
   //UM +
   static const SPLASH = '/splash';
@@ -6,4 +8,8 @@ abstract class Routes {
   static const AUTH = '/auth';
   static const WEB_VIEW = '/web_view';
   static const HOME = '/home';
+
+  //Restaurante
+  static const RESTAURANT_MODULES = '/restaurant_modules';
+  static const ONLINE_TURNSTILE = '/online_turnstile';
 }
