@@ -21,12 +21,18 @@ abstract class AppPages {
     GetPage(
       name: Routes.SPLASH,
       page: () => SplashPage(),
-      bindings: [SplashBinding(), LockDevelopModeBinding(), AuthBinding(), UserBindings()],
+      bindings: [
+        SplashBinding(),
+        LockDevelopModeBinding(),
+        AuthBinding(),
+        UserBindings(),
+      ],
     ),
 
     GetPage(
       name: Routes.YOU_SHALL_NOT_PASS,
       page: () => LockDevelopModePage(),
+      binding: LockDevelopModeBinding(),
     ),
 
     GetPage(
@@ -35,10 +41,7 @@ abstract class AppPages {
       bindings: [LoginBinding()],
     ),
 
-    GetPage(
-      name: Routes.AUTH,
-      page: () => AuthPage(),
-    ),
+    GetPage(name: Routes.AUTH, page: () => AuthPage(), binding: AuthBinding()),
 
     GetPage(
       name: Routes.WEB_VIEW,
@@ -57,9 +60,6 @@ abstract class AppPages {
       name: Routes.RESTAURANT_MODULES,
       page: () => RestaurantModulesPage(),
     ),
-    GetPage(
-      name: Routes.ONLINE_TURNSTILE,
-      page: () => OnlineTurnstilePage(),
-    ),
+    GetPage(name: Routes.ONLINE_TURNSTILE, page: () => OnlineTurnstilePage()),
   ];
 }

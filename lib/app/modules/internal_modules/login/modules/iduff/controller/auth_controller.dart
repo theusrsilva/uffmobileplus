@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/services/auth.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/services/auth_information_service.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/data/service/user_umm_service.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class AuthController extends GetxController {
   final AuthInformationService _authInformationService =
       Get.find<AuthInformationService>();
+  final UserUmmService _userUmmService = Get.find<UserUmmService>();
   final Auth _auth = Get.find<Auth>();
 
   backToLogin() {
@@ -38,8 +40,13 @@ class AuthController extends GetxController {
     );
   }
 
-  loginSuccessful() {
+  loginSuccessful() async {
     _authInformationService.updateIsLogged(true);
+
+    final userUmm = await _userUmmService.getUserUmm();
+    if (userUmm != null) {
+      await _userUmmService.saveUserUmm(userUmm);
+    }
     Get.offAllNamed(Routes.HOME);
   }
 }
