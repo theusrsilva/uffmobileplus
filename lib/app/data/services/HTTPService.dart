@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/services/auth.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth.dart';
 
 class HTTPService {
   final Auth _auth;

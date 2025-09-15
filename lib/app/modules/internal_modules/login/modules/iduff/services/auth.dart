@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:uffmobileplus/app/config/secrets.dart';
 import 'package:uffmobileplus/app/data/services/HTTPService.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/controller/auth_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_model.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/services/auth_information_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/utils/auth_client.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_auth_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_auth_model.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/service/user_auth_service.dart';
 
 enum KeycloakEnvironment { homologacao, production }
 
@@ -33,9 +33,8 @@ class Auth {
   final FlutterAppAuth appAuth = FlutterAppAuth();
   bool isAuthenticated = false;
 
-  final UserAuthService _userAuthService = Get.find<UserAuthService>();
-  final AuthInformationService _authInformationService =
-      Get.find<AuthInformationService>();
+  final AuthController _authController = Get.find<AuthController>();
+  final UserAuthController _userAuthController = Get.find<UserAuthController>();
 
   AuthenticatedClient? client;
 
@@ -83,7 +82,7 @@ class Auth {
     debugPrint("calling authorize");
     try {
       //Troca o refresh token por um novo access token quando o atual expira, sem precisar fazer login completo novamente.
-      if (await _authInformationService.getRefreshToken() != null) {
+      if (await _authController.getRefreshToken() != null) {
         tokenResponse = await _getNewAccessToken();
 
         if (tokenResponse != null) {
@@ -175,7 +174,7 @@ class Auth {
   Future<bool> refreshToken() async {
     TokenResponse? tokenResponse;
 
-    if (await _authInformationService.getRefreshToken() == null) return false;
+    if (await _authController.getRefreshToken() == null) return false;
 
     tokenResponse = await _getNewAccessToken();
 
@@ -212,9 +211,7 @@ class Auth {
         iduff: iduff,
       );
 
-      String authResult = await _authInformationService.saveAuthInformation(
-        authInfo,
-      );
+      String authResult = await _authController.saveAuthInformation(authInfo);
       if (authResult != "success") {
         debugPrint("Erro ao salvar AuthInformation: $authResult");
       }
@@ -229,7 +226,7 @@ class Auth {
         vinculacao: userInfo["vinculacao"] ?? '-',
       );
 
-      String userResult = await _userAuthService.saveUserAuthModel(userAuth);
+      String userResult = await _userAuthController.saveUserAuthModel(userAuth);
       if (userResult != "success") {
         debugPrint("Erro ao salvar UserAuth: $userResult");
       }
@@ -249,10 +246,9 @@ class Auth {
           keycloakInfo[keycloakEnv]!.appId,
           Secrets.redirectUri,
           grantType: 'refresh_token',
-          refreshToken: await _authInformationService.getRefreshToken(),
-          authorizationCode: await _authInformationService
-              .getAuthorizationCode(),
-          codeVerifier: await _authInformationService.getCodeVerifier(),
+          refreshToken: await _authController.getRefreshToken(),
+          authorizationCode: await _authController.getAuthorizationCode(),
+          codeVerifier: await _authController.getCodeVerifier(),
           serviceConfiguration: keycloakInfo[keycloakEnv]!.authServiceConfig,
           scopes: Secrets.authScopes,
         ),
@@ -288,13 +284,13 @@ class Auth {
   }
 
   String _assemblePhotoUrl() {
-    return "${Secrets.userPhotoBaseUrl}/${_authInformationService.getIduff()}";
+    return "${Secrets.userPhotoBaseUrl}/${_authController.getIduff()}";
   }
 
   Future<bool> tryLogin() async {
     TokenResponse? tokenResponse;
     try {
-      String? refreshToken = await _authInformationService.getRefreshToken();
+      String? refreshToken = await _authController.getRefreshToken();
       if (refreshToken == null) return false;
       tokenResponse = await _getNewAccessToken();
       debugPrint("Access Token $tokenResponse!!!!!!!!!");
