@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/online_turnstile/ui/online_turnstile_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_binding.dart';
@@ -19,7 +21,12 @@ abstract class AppPages {
     GetPage(
       name: Routes.SPLASH,
       page: () => SplashPage(),
-      binding: SplashBinding(),
+      bindings: [
+        SplashBinding(),
+        LockDevelopModeBinding(),
+        AuthBinding(),
+        UserBindings(),
+      ],
     ),
 
     GetPage(
@@ -31,14 +38,10 @@ abstract class AppPages {
     GetPage(
       name: Routes.LOGIN,
       page: () => LoginPage(),
-      bindings: [LoginBinding(), AuthBinding()],
+      bindings: [LoginBinding()],
     ),
 
-    GetPage(
-      name: Routes.AUTH,
-      page: () => AuthPage(),
-      bindings: [AuthBinding(), UserBindings()],
-    ),
+    GetPage(name: Routes.AUTH, page: () => AuthPage(), binding: AuthBinding()),
 
     GetPage(
       name: Routes.WEB_VIEW,
@@ -51,5 +54,12 @@ abstract class AppPages {
       page: () => HomePage(),
       binding: HomePageBinding(),
     ),
+
+    //Restaurante
+    GetPage(
+      name: Routes.RESTAURANT_MODULES,
+      page: () => RestaurantModulesPage(),
+    ),
+    GetPage(name: Routes.ONLINE_TURNSTILE, page: () => OnlineTurnstilePage()),
   ];
 }

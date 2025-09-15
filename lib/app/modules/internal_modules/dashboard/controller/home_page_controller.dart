@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class HomePageController extends GetxController {
+  late PersistentTabController tabController;
 
-//final HomeRepository repository;
-HomePageController();//this.repository);
-
-  final _obj = ''.obs;
-  set obj(value) => this._obj.value = value;
-  get obj => this._obj.value;
+  @override
+  void onInit() {
+    super.onInit();
+    tabController = PersistentTabController(initialIndex: 0);
+  }
 }

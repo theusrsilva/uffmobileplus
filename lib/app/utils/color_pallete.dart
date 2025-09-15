@@ -7,4 +7,46 @@ class AppColors{
   static Color mediumBlue({int alpha=255}) => Color.fromARGB(alpha, 57, 125, 198);
   static Color alternativeDarkBlue({int alpha=255}) => Color.fromARGB(alpha, 33, 59, 79);
   static Color alternativeMediumBlue({int alpha=255}) => Color.fromARGB(alpha, 42, 94, 147);
+
+  static LinearGradient darkBlueToBlackGradient({
+    Alignment begin = Alignment.topLeft,
+    Alignment end = Alignment.bottomRight,
+  }) {
+    return LinearGradient(
+      colors: [
+        AppColors.darkBlue(),
+        Colors.black,
+      ],
+      begin: begin,
+      end: end,
+    );
+  }
+
+  static LinearGradient appBarTopGradient({
+    Alignment begin = Alignment.topCenter,
+    Alignment end = Alignment.bottomCenter,
+  }) {
+    return LinearGradient(
+      colors: [
+        AppColors.mediumBlue(),
+        AppColors.darkBlue(),
+      ],
+      begin: begin,
+      end: end,
+    );
+  }
+
+  static LinearGradient appBarBottomGradient({
+    Alignment begin = Alignment.topCenter,
+    Alignment end = Alignment.bottomCenter,
+  }) {
+    return LinearGradient(
+      colors: [
+        AppColors.alternativeMediumBlue(),
+        AppColors.alternativeDarkBlue(),
+      ],
+      begin: begin,
+      end: end,
+    );
+  }
 }

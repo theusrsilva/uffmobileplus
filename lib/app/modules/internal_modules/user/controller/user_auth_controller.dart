@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_auth_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_auth_repository.dart';
 
-class UserAuthService extends GetxService {
-  final UserAuthRepository _userAuthRepository = UserAuthRepository();
+class UserAuthController extends GetxController {
+  UserAuthController();
 
-  UserAuthService() {
-    debugPrint("Creating User Auth Service");
-  }
+  final UserAuthRepository _userAuthRepository = UserAuthRepository();
 
   Future<String> saveUserAuthModel(UserAuthModel userAuth) async {
     return await _userAuthRepository.saveUserAuthModel(userAuth);
