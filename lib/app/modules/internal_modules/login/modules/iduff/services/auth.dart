@@ -33,8 +33,8 @@ class Auth {
   final FlutterAppAuth appAuth = FlutterAppAuth();
   bool isAuthenticated = false;
 
-  final AuthController _authController = Get.find<AuthController>();
-  final UserAuthController _userAuthController = Get.find<UserAuthController>();
+  AuthController get _authController => Get.find<AuthController>();
+  UserAuthController get _userAuthController => Get.find<UserAuthController>();
 
   AuthenticatedClient? client;
 
