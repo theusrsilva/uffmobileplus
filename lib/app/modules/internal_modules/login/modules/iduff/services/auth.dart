@@ -197,7 +197,7 @@ class Auth {
         tokenResponse.accessToken,
       );
 
-      String iduff = userInfo["email"];
+      String iduff = userInfo["preferred_username"];
 
       // Criar e salvar AuthInformationModel
       AuthInformationModel authInfo = AuthInformationModel(

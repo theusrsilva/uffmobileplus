@@ -20,6 +20,7 @@ class LoginController extends GetxController {
   }
 
   loginIDUFF() {
+    
     Get.offAllNamed(Routes.AUTH);
   }
 

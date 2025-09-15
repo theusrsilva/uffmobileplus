@@ -22,17 +22,18 @@ class UserUMMProvider {
     );
 
     try {
-      http.Response? apiResponse =
-          (await Get.find<HTTPService>().get(url)) as Response?;
-
+      final apiResponse = await Get.find<HTTPService>().get(url);
       if (apiResponse == null) return UserUmmModel();
 
-      if (apiResponse.statusCode != 200) {
-        debugPrint(
-          "ERROR WITH API. CODE: ${apiResponse.statusCode}\n BODY: ${apiResponse.body}",
-        );
+      // Trabalha com a resposta dinamicamente para evitar conflito entre
+      // package:http.Response e get_connect Response.
+      final statusCode = apiResponse.statusCode;
+      final body = apiResponse.body;
+
+      if (statusCode != 200) {
+        debugPrint("ERROR WITH API. CODE: $statusCode\n BODY: $body");
       }
-      final userJson = jsonDecode(apiResponse.body);
+      final userJson = jsonDecode(body);
       return UserUmmModel.fromJson(userJson);
     } catch (e) {
       debugPrint("ERROR -getUserData $e");
@@ -46,6 +47,7 @@ class UserUMMProvider {
       await box.put(_ummKey, userUmm);
       return "success";
     } catch (e) {
+      debugPrint("saveUserUmmModel - erro: $e");
       return "Erro ao salvar dados do UserUmmModel no Hive: $e";
     }
   }

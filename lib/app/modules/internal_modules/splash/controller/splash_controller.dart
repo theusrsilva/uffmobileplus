@@ -10,6 +10,7 @@ class SplashController extends GetxController {
 
   final AuthController _authController = Get.find<AuthController>();
 
+
   double animatedMargin = 0.0;
   bool visibleStrip = false;
 
@@ -29,7 +30,7 @@ class SplashController extends GetxController {
     } else {
       if (_login) {
         debugPrint("Auto Login successful");
-        Get.offAllNamed(Routes.HOME);
+        _authController.loginSuccessful();
       } else {
         debugPrint("Auto Login failed");
         Get.offAllNamed(Routes.LOGIN);

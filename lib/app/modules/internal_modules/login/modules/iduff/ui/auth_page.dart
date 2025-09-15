@@ -9,7 +9,9 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<AuthController>(
-        init: AuthController(),
+        init: Get.put(AuthController()),
+        // chama login() assim que o GetBuilder for inicializado 
+        initState: (_) => Get.find<AuthController>().login(),
         builder: (_) => Container(
           color: AppColors.lightBlue(),
           child: const Center(child: CustomProgressDisplay()),

@@ -7,10 +7,12 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class AuthController extends GetxController {
+
   UserUmmController get _userUmmController => Get.find<UserUmmController>();
 
   AuthInformationRepository get _authInformationRepository =>
     Get.find<AuthInformationRepository>();
+
   Auth get _auth => Get.find<Auth>();
 
   backToLogin() {
@@ -19,14 +21,13 @@ class AuthController extends GetxController {
 
   @override
   void onInit() {
+    
     super.onInit();
   }
 
   @override
   void onReady() {
-    _auth
-        .authenticate(Get.context)
-        .then((loggedIn) => loggedIn ? loginSuccessful() : loginFailed());
+    
     super.onReady();
   }
 
@@ -49,14 +50,19 @@ class AuthController extends GetxController {
 
   loginSuccessful() async {
     updateIsLogged(true);
-
-    final userUmm = await _userUmmController.getUserUmm();
+    String? iduff = await getIduff();
+    final userUmm = await _userUmmController.getUserData(iduff);
     if (userUmm != null) {
       await _userUmmController.saveUserUmm(userUmm);
     }
     Get.offAllNamed(Routes.HOME);
   }
 
+  login(){
+    _auth
+        .authenticate(Get.context)
+        .then((loggedIn) => loggedIn ? loginSuccessful() : loginFailed());
+  }
   Future<String> saveAuthInformation(AuthInformationModel authInfo) async {
     return await _authInformationRepository.saveAuthInformation(authInfo);
   }

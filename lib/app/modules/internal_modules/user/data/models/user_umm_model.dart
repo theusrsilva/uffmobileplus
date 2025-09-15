@@ -69,7 +69,7 @@ class Grad {
 class Matriculas {
 
   @HiveField(0)
-  BigInt? id;
+  int? id;
 
   @HiveField(1)
   String? matricula;

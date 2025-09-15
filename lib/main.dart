@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_model.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_auth_model.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
+import 'package:uffmobileplus/app/data/services/hive_service.dart';
 import 'package:uffmobileplus/app/routes/app_pages.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
@@ -12,11 +9,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  await Hive.initFlutter();
-  // Registrar adapters
-  Hive.registerAdapter(AuthInformationModelAdapter());
-  Hive.registerAdapter(UserAuthModelAdapter());
-  Hive.registerAdapter(UserUmmModelAdapter());
+  await HiveService.init();
 
   runApp(
     GetMaterialApp(
