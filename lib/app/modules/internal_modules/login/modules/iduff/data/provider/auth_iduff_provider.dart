@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_model.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_iduff_model.dart';
 
 class AuthInformationProvider {
   final String _collectionPath = "auth_information_data";

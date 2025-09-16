@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'auth_model.g.dart';
+part 'auth_iduff_model.g.dart';
 
 @HiveType(typeId: 1)
 class AuthInformationModel extends HiveObject {

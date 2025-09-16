@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_model.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/provider/auth_information_provider.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_iduff_model.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/provider/auth_iduff_provider.dart';
 
 class AuthInformationRepository {
   final AuthInformationProvider _authInformationProvider =

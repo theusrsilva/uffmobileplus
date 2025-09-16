@@ -4,7 +4,7 @@ import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restau
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_binding.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/bindings/auth_bindings.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/bindings/auth_iduff.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/ui/auth_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/splash/bindings/splash_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_bindings.dart';

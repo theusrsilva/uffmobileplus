@@ -49,4 +49,15 @@ class AppColors{
       end: end,
     );
   }
+
+  static LinearGradient darkTransparentGradient() {
+    return LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Colors.black.withOpacity( 0.2), 
+        Colors.black.withOpacity( 0.2), 
+      ],
+    );
+  }
 }

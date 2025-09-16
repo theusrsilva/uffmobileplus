@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart'; // Add this import for kDebugMode
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/controller/lock_develop_mode_controller.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/controller/auth_controller.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/controller/auth_iduff_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class SplashController extends GetxController {
