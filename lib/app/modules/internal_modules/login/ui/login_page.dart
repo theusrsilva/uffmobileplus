@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
               // Imagem centralizada por cima do gradiente
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: height * 0.18), 
+                  padding: EdgeInsets.only(bottom: height * 0.18),
                   child: Image.asset(
                     'assets/logos/mini_logo_um+.png',
                     fit: BoxFit.contain,
@@ -44,7 +44,10 @@ class LoginPage extends StatelessWidget {
                   children: [
                     // Top Row
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 75), 
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40.0,
+                        vertical: 75,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -55,7 +58,7 @@ class LoginPage extends StatelessWidget {
                             color: Colors.white,
                           ),
                           Visibility(
-                            visible: true,//controller.showQrCode,
+                            visible: true, //controller.showQrCode,
                             child: Tooltip(
                               message: "QR Code Carteirinha",
                               child: IconButton(
@@ -74,7 +77,9 @@ class LoginPage extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 300), // Desce os botões
+                          padding: const EdgeInsets.only(
+                            top: 300,
+                          ), // Desce os botões
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -84,13 +89,14 @@ class LoginPage extends StatelessWidget {
                                 icon: Icons.account_circle_outlined,
                                 onTap: controller.loginIDUFF,
                               ),
-                              const SizedBox(height: 28), // Espaçamento maior entre os botões
+                              const SizedBox(
+                                height: 28,
+                              ), // Espaçamento maior entre os botões
                               // Botão Google
                               _LoginButton(
                                 text: 'Entrar com Google',
                                 icon: Icons.g_mobiledata,
-                                onTap: (){},
-                                //onTap: controller.loginGoogle,
+                                onTap: controller.loginGoogle,
                               ),
                             ],
                           ),

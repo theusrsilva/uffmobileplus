@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/response/response.dart' as http;
 import 'package:hive/hive.dart';
 import 'package:uffmobileplus/app/config/secrets.dart';
 import 'package:uffmobileplus/app/data/services/HTTPService.dart';
