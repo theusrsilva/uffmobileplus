@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_iduff_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/provider/auth_iduff_provider.dart';
 
-class AuthInformationRepository {
-  final AuthInformationProvider _authInformationProvider =
-      AuthInformationProvider();
+class AuthIduffRepository {
+  final AuthIduffProvider _authInformationProvider = AuthIduffProvider();
 
-  AuthInformationRepository() {
-    debugPrint("Creating Auth Information Repo");
+  AuthIduffRepository() {
+    debugPrint("Creating Auth Iduff Repo");
   }
 
-  Future<String> saveAuthInformation(AuthInformationModel authInfo) async {
+  Future<String> saveAuthInformation(AuthIduffModel authInfo) async {
     return await _authInformationProvider.saveAuthInformation(authInfo);
   }
 
-  Future<AuthInformationModel?> getAuthInformation() async {
+  Future<AuthIduffModel?> getAuthInformation() async {
     return await _authInformationProvider.getAuthInformation();
   }
 

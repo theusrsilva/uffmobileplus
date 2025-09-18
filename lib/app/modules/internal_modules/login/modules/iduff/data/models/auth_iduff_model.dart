@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'auth_iduff_model.g.dart';
 
 @HiveType(typeId: 1)
-class AuthInformationModel extends HiveObject {
+class AuthIduffModel extends HiveObject {
   @HiveField(0)
   final String? accessToken;
 
@@ -25,7 +25,7 @@ class AuthInformationModel extends HiveObject {
   @HiveField(6)
   final String iduff;
 
-  AuthInformationModel({
+  AuthIduffModel({
     this.accessToken,
     this.refreshToken,
     this.accessTokenExpiration = 0,
@@ -36,8 +36,8 @@ class AuthInformationModel extends HiveObject {
   });
 
   // Converter de Map para AuthInformationModel
-  factory AuthInformationModel.fromMap(Map<String, dynamic> map) {
-    return AuthInformationModel(
+  factory AuthIduffModel.fromMap(Map<String, dynamic> map) {
+    return AuthIduffModel(
       accessToken: map['accessToken'],
       refreshToken: map['refreshToken'],
       accessTokenExpiration: map['accessTokenExpiration'] ?? 0,
@@ -63,6 +63,6 @@ class AuthInformationModel extends HiveObject {
 
   @override
   String toString() {
-    return 'AuthInformationModel(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiration: $accessTokenExpiration, codeVerifier: $codeVerifier, authorizationCode: $authorizationCode, isLogged: $isLogged, iduff: $iduff)';
+    return 'AuthIduffModel(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiration: $accessTokenExpiration, codeVerifier: $codeVerifier, authorizationCode: $authorizationCode, isLogged: $isLogged, iduff: $iduff)';
   }
 }

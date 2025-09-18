@@ -3,7 +3,7 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/provider/user_auth_provider.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_auth_repository.dart';
 
-class UserBindings implements Bindings {
+class UserAuthBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<UserAuthProvider>(() => UserAuthProvider());

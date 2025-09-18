@@ -6,29 +6,21 @@ import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/s
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_umm_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
-class AuthController extends GetxController {
-
-  UserUmmController get _userUmmController => Get.find<UserUmmController>();
-
-  AuthInformationRepository get _authInformationRepository =>
-    Get.find<AuthInformationRepository>();
-
-  Auth get _auth => Get.find<Auth>();
-
-  backToLogin() {
-    Get.offAndToNamed(Routes.LOGIN);
-  }
+class AuthIduffController extends GetxController {
+  late final UserUmmController _userUmmController;
+  late final AuthIduffRepository _authInformationRepository;
+  late final AuthIduffService _authIduffService;
 
   @override
   void onInit() {
-    
+    _userUmmController = Get.find<UserUmmController>();
+    _authInformationRepository = Get.find<AuthIduffRepository>();
+    _authIduffService = Get.find<AuthIduffService>();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    
-    super.onReady();
+  backToLogin() {
+    Get.offAndToNamed(Routes.LOGIN);
   }
 
   loginFailed() {
@@ -58,16 +50,17 @@ class AuthController extends GetxController {
     Get.offAllNamed(Routes.HOME);
   }
 
-  login(){
-    _auth
+  login() {
+    _authIduffService
         .authenticate(Get.context)
         .then((loggedIn) => loggedIn ? loginSuccessful() : loginFailed());
   }
-  Future<String> saveAuthInformation(AuthInformationModel authInfo) async {
+
+  Future<String> saveAuthInformation(AuthIduffModel authInfo) async {
     return await _authInformationRepository.saveAuthInformation(authInfo);
   }
 
-  Future<AuthInformationModel?> getAuthInformation() async {
+  Future<AuthIduffModel?> getAuthInformation() async {
     return await _authInformationRepository.getAuthInformation();
   }
 
@@ -112,6 +105,6 @@ class AuthController extends GetxController {
   }
 
   Future<bool> tryLogin() async {
-    return await _auth.tryLogin();
+    return await _authIduffService.tryLogin();
   }
 }

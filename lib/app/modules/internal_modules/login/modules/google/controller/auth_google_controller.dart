@@ -1,17 +1,16 @@
 import 'package:get/get.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/services/auth_google.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_google_model.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/services/auth_google_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_google_repository.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
-class LoginGoogleController extends GetxController {
-  LoginGoogleController();
+class AuthGoogleController extends GetxController {
+  AuthGoogleController();
 
-  late final AuthGoogle _authGoogle;
+  late final AuthGoogleService _authGoogle;
   late final UserGoogleRepository _userRepository;
 
   void onInit() {
-    _authGoogle = Get.find<AuthGoogle>();
+    _authGoogle = Get.find<AuthGoogleService>();
     _userRepository = Get.find<UserGoogleRepository>();
     super.onInit();
   }

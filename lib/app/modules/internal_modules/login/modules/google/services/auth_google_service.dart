@@ -5,20 +5,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_google_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_google_repository.dart';
 
-class AuthGoogle {
+class AuthGoogleService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final UserGoogleRepository _userRepository = UserGoogleRepository();
 
-  AuthGoogle();
+  AuthGoogleService();
 
   Future<UserGoogleModel?> signInGoogle() async {
     var account = await _googleSignIn.signIn();
     var b = await account!.authentication;
     final authCredential = GoogleAuthProvider.credential(
-        accessToken: b.accessToken, idToken: b.idToken);
+      accessToken: b.accessToken,
+      idToken: b.idToken,
+    );
     try {
-      var userCredential =
-          await FirebaseAuth.instance.signInWithCredential(authCredential);
+      var userCredential = await FirebaseAuth.instance.signInWithCredential(
+        authCredential,
+      );
 
       return await _userRepository.createUserDoc(
         userCredential.user!.email!,
@@ -39,10 +42,13 @@ class AuthGoogle {
     }
     var b = await account.authentication;
     final authCredential = GoogleAuthProvider.credential(
-        accessToken: b.accessToken, idToken: b.idToken);
+      accessToken: b.accessToken,
+      idToken: b.idToken,
+    );
     try {
-      var userCredential =
-          await FirebaseAuth.instance.signInWithCredential(authCredential);
+      var userCredential = await FirebaseAuth.instance.signInWithCredential(
+        authCredential,
+      );
       return await _userRepository.createUserDoc(
         userCredential.user!.email!,
         userCredential.user!.displayName!,
@@ -59,6 +65,4 @@ class AuthGoogle {
     await _googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
   }
-
- 
 }

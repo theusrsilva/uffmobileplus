@@ -5,11 +5,15 @@ import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/c
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class SplashController extends GetxController {
-  final LockDevelopModeController _lockController =
-      Get.find<LockDevelopModeController>();
+  late final LockDevelopModeController _lockController;
+  late final AuthIduffController _authController;
 
-  final AuthController _authController = Get.find<AuthController>();
-
+  @override
+  void onInit() {
+    _lockController = Get.find<LockDevelopModeController>();
+    _authController = Get.find<AuthIduffController>();
+    super.onInit();
+  }
 
   double animatedMargin = 0.0;
   bool visibleStrip = false;

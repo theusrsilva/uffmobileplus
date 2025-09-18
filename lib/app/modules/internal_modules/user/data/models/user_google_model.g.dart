@@ -17,7 +17,7 @@ class UserGoogleModelAdapter extends TypeAdapter<UserGoogleModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserGoogleModel(
-      id: fields[0] as String,
+      id: fields[0] as String?,
       name: fields[1] as String?,
       email: fields[2] as String,
       urlImage: fields[3] as String?,

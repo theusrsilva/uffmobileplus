@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/login_google_controller.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/controller/auth_google_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class LoginController extends GetxController {
@@ -14,7 +14,7 @@ class LoginController extends GetxController {
   @override
   onInit() {
     //updateShowQrCode();
-    _loginGoogleController = Get.find<LoginGoogleController>();
+    _loginGoogleController = Get.find<AuthGoogleController>();
     super.onInit();
   }
 

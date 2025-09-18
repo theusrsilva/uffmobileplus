@@ -29,11 +29,11 @@ class OAuth2Info {
   });
 }
 
-class Auth {
+class AuthIduffService {
   final FlutterAppAuth appAuth = FlutterAppAuth();
   bool isAuthenticated = false;
 
-  AuthController get _authController => Get.find<AuthController>();
+  AuthIduffController get _authController => Get.find<AuthIduffController>();
   UserAuthController get _userAuthController => Get.find<UserAuthController>();
 
   AuthenticatedClient? client;
@@ -62,7 +62,7 @@ class Auth {
     ),
   };
 
-  Auth() {
+  AuthIduffService() {
     if (kReleaseMode) {
       keycloakEnv = KeycloakEnvironment.production;
     } else {
@@ -199,8 +199,8 @@ class Auth {
 
       String iduff = userInfo["preferred_username"];
 
-      // Criar e salvar AuthInformationModel
-      AuthInformationModel authInfo = AuthInformationModel(
+      // Criar e salvar AuthIduffModel
+      AuthIduffModel authInfo = AuthIduffModel(
         accessToken: tokenResponse.accessToken,
         refreshToken: tokenResponse.refreshToken,
         accessTokenExpiration:
