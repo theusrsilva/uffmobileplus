@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/controller/home_page_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/external_modules_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings_page.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
 class HomePage extends GetView<HomePageController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class HomePage extends GetView<HomePageController> {
         screens: [
           Container(child: Center(child: Text('Atalhos'))),
           ExternalModulesPage(),
-          Container(child: Center(child: Text('Configurações'))),
+          SettingsPage(),
         ],
         items: [
           // Tela Principal
