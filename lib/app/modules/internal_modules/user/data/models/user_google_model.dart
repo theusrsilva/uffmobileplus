@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'user_google_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 17)
 class UserGoogleModel extends HiveObject {
   @HiveField(0)
   String? id;

@@ -8,7 +8,7 @@ part of 'user_google_model.dart';
 
 class UserGoogleModelAdapter extends TypeAdapter<UserGoogleModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 17;
 
   @override
   UserGoogleModel read(BinaryReader reader) {

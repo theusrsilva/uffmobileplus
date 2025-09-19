@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_iduff_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_auth_model.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_google_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
 
 class HiveService {
@@ -26,6 +27,7 @@ class HiveService {
     Hive.registerAdapter(UsuarioAdapter());
     Hive.registerAdapter(InnerObjectAdapter());
     Hive.registerAdapter(VinculacaoAdapter());
+    Hive.registerAdapter(UserGoogleModelAdapter());
   }
 
   /// Convenience wrapper to open a box with a specific generic type.
