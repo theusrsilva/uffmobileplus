@@ -6,6 +6,17 @@ class ExternalModulesController extends GetxController {
   ExternalModulesController();
 
   List<ExternalModules> externalModulesList = [
+
+    ExternalModules(
+        iconSrc: 'assets/carteirinha_digital/icons/carteirinha.svg',
+        subtitle: 'Carteirinha Digital',
+        page: Routes.CARTEIRINHA_DIGITAL,
+        url: '',
+        interrogation: false,
+        //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
+        //gdiGroups: null
+    ),
+
     ExternalModules(
         iconSrc: 'assets/icons/bandejapp.svg',
         subtitle: 'Restaurante',
@@ -14,7 +25,9 @@ class ExternalModulesController extends GetxController {
         interrogation: false,
         //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
         //gdiGroups: null
-    )
+    ),
+    
+
   ];
 
    void navigateTo(

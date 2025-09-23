@@ -56,7 +56,8 @@ class UserUMMProvider {
       var box = await Hive.openBox<UserUmmModel>(_ummCollectionPath);
       return box.get(_ummKey);
     } catch (e) {
-      throw Exception("Erro ao buscar dados do UserUmmModel do Hive: $e");
+      debugPrint("Erro ao obter dados do UserUmmModel do Hive: $e");
+      return UserUmmModel();
     }
   }
 

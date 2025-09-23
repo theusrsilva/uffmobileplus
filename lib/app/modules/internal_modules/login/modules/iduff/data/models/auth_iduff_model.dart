@@ -23,7 +23,7 @@ class AuthIduffModel extends HiveObject {
   final bool isLogged;
 
   @HiveField(6)
-  final String iduff;
+  final String? iduff;
 
   AuthIduffModel({
     this.accessToken,
@@ -32,7 +32,7 @@ class AuthIduffModel extends HiveObject {
     this.codeVerifier,
     this.authorizationCode,
     this.isLogged = false,
-    required this.iduff,
+    this.iduff,
   });
 
   // Converter de Map para AuthInformationModel

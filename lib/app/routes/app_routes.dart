@@ -9,7 +9,10 @@ abstract class Routes {
   static const WEB_VIEW = '/web_view';
   static const HOME = '/home';
 
-  //Restaurante
+  //Restaurante - Externo
   static const RESTAURANT_MODULES = '/restaurant_modules';
   static const ONLINE_TURNSTILE = '/online_turnstile';
+
+  //Carteirinha Digital - Externo
+  static const CARTEIRINHA_DIGITAL = '/carteirinha_digital';
 }

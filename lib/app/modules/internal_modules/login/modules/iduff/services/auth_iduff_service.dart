@@ -216,12 +216,15 @@ class AuthIduffService {
         debugPrint("Erro ao salvar AuthInformation: $authResult");
       }
 
+      // Corrigido: monta a URL da foto usando o iduff obtido do userInfo
+      String photoUrl = _assemblePhotoUrlWithIduff(iduff);
+
       // Criar e salvar UserAuthModel
       UserAuthModel userAuth = UserAuthModel(
         iduff: iduff,
         fullName: userInfo["name"] ?? '-',
         email: userInfo["email"],
-        photoUrl: _assemblePhotoUrl(),
+        photoUrl: photoUrl,
         registration: userInfo["registration"] ?? '-',
         vinculacao: userInfo["vinculacao"] ?? '-',
       );
@@ -235,6 +238,11 @@ class AuthIduffService {
       debugPrint("ERRO EM Authorize: $e");
       return false;
     }
+  }
+
+  // Novo método para montar a URL da foto usando o iduff correto
+  String _assemblePhotoUrlWithIduff(String iduff) {
+    return "${Secrets.userPhotoBaseUrl}/$iduff";
   }
 
   // Esta função tenta renovar o token de acesso usando o token de atualização armazenado

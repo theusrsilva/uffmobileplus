@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: ^6.0.1
   firebase_core: ^4.1.0
   package_info_plus: ^9.0.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -49,3 +50,6 @@ flutter:
     - assets/logos/
     - assets/animations/
     - assets/icons/
+    - assets/carteirinha_digital/
+    - assets/carteirinha_digital/images/
+    - assets/carteirinha_digital/icons/
