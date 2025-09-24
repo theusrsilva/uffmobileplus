@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
+import 'package:uffmobileplus/app/routes/app_routes.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
               "Sobre", // TODO: internacionalizar
               "Informações sobre o aplicativo", // TODO: internacionalizar
               onTap: () {
-                Get.to(() => AboutPage());
+                Get.toNamed(Routes.ABOUT);
               },
             ),
           ],

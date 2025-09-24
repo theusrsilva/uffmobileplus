@@ -8,6 +8,8 @@ abstract class Routes {
   static const AUTH = '/auth';
   static const WEB_VIEW = '/web_view';
   static const HOME = '/home';
+  static const SETTINGS = '/settings';
+  static const ABOUT = '/about';
 
   //Restaurante
   static const RESTAURANT_MODULES = '/restaurant_modules';
