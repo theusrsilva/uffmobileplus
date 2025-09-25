@@ -9,16 +9,16 @@ class UserAuthRepository {
     debugPrint("Creating User Auth Repo");
   }
 
-  Future<String> saveUserAuthModel(UserAuthModel userAuth) async {
-    return await _userAuthProvider.saveUserAuthModel(userAuth);
+  Future<String> saveUserIduffModel(UserIduffModel userAuth) async {
+    return await _userAuthProvider.saveUserIduffModel(userAuth);
   }
 
-  Future<UserAuthModel?> getUserAuthModel() async {
-    return await _userAuthProvider.getUserAuthModel();
+  Future<UserIduffModel?> getUserIduffModel() async {
+    return await _userAuthProvider.getUserIduffModel();
   }
 
-  Future<String> deleteUserAuthModel() async {
-    return await _userAuthProvider.deleteUserAuthModel();
+  Future<String> deleteUserIduffModel() async {
+    return await _userAuthProvider.deleteUserIduffModel();
   }
 
   Future<String> clearAllUserAuth() async {

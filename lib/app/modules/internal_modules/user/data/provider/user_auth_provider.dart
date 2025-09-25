@@ -10,10 +10,10 @@ class UserAuthProvider {
     debugPrint("Started User Auth provider");
   }
 
-  // functions for CRUD operations on UserAuthModel in Hive database
-  Future<String> saveUserAuthModel(UserAuthModel userAuth) async {
+  // functions for CRUD operations on UserIduffModel in Hive database
+  Future<String> saveUserIduffModel(UserIduffModel userAuth) async {
     try {
-      var box = await Hive.openBox<UserAuthModel>(_collectionPath);
+      var box = await Hive.openBox<UserIduffModel>(_collectionPath);
       await box.put(_authKey, userAuth);
       return "success";
     } catch (e) {
@@ -21,18 +21,18 @@ class UserAuthProvider {
     }
   }
 
-  Future<UserAuthModel?> getUserAuthModel() async {
+  Future<UserIduffModel?> getUserIduffModel() async {
     try {
-      var box = await Hive.openBox<UserAuthModel>(_collectionPath);
+      var box = await Hive.openBox<UserIduffModel>(_collectionPath);
       return box.get(_authKey);
     } catch (e) {
       throw Exception("Erro ao buscar dados do usuário do Hive: $e");
     }
   }
 
-  Future<String> deleteUserAuthModel() async {
+  Future<String> deleteUserIduffModel() async {
     try {
-      var box = await Hive.openBox<UserAuthModel>(_collectionPath);
+      var box = await Hive.openBox<UserIduffModel>(_collectionPath);
       await box.delete(_authKey);
       return "success";
     } catch (e) {
@@ -42,7 +42,7 @@ class UserAuthProvider {
 
   Future<String> clearAllUserAuth() async {
     try {
-      var box = await Hive.openBox<UserAuthModel>(_collectionPath);
+      var box = await Hive.openBox<UserIduffModel>(_collectionPath);
       await box.clear();
       return "success";
     } catch (e) {
@@ -52,7 +52,7 @@ class UserAuthProvider {
 
   Future<bool> hasUserAuth() async {
     try {
-      var box = await Hive.openBox<UserAuthModel>(_collectionPath);
+      var box = await Hive.openBox<UserIduffModel>(_collectionPath);
       return box.containsKey(_authKey);
     } catch (e) {
       debugPrint("Erro ao verificar existência de dados do usuário: $e");

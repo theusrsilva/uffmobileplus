@@ -7,16 +7,16 @@ class UserAuthController extends GetxController {
 
   final UserAuthRepository _userAuthRepository = UserAuthRepository();
 
-  Future<String> saveUserAuthModel(UserAuthModel userAuth) async {
-    return await _userAuthRepository.saveUserAuthModel(userAuth);
+  Future<String> saveUserIduffModel(UserIduffModel userAuth) async {
+    return await _userAuthRepository.saveUserIduffModel(userAuth);
   }
 
-  Future<UserAuthModel?> getUserAuthModel() async {
-    return await _userAuthRepository.getUserAuthModel();
+  Future<UserIduffModel?> getUserIduffModel() async {
+    return await _userAuthRepository.getUserIduffModel();
   }
 
-  Future<String> deleteUserAuthModel() async {
-    return await _userAuthRepository.deleteUserAuthModel();
+  Future<String> deleteUserIduffModel() async {
+    return await _userAuthRepository.deleteUserIduffModel();
   }
 
   Future<String> clearAllUserAuth() async {

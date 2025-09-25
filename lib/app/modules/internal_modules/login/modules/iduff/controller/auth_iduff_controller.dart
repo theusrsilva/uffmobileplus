@@ -5,17 +5,21 @@ import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/d
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth_iduff_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_umm_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_data_controller.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_data.dart';
 
 class AuthIduffController extends GetxController {
   late final UserUmmController _userUmmController;
   late final AuthIduffRepository _authInformationRepository;
   late final AuthIduffService _authIduffService;
+  late final UserDataController _userDataController;
 
   @override
   void onInit() {
     _userUmmController = Get.find<UserUmmController>();
     _authInformationRepository = Get.find<AuthIduffRepository>();
     _authIduffService = Get.find<AuthIduffService>();
+    _userDataController = Get.find<UserDataController>();
     super.onInit();
   }
 
@@ -46,6 +50,20 @@ class AuthIduffController extends GetxController {
     final userUmm = await _userUmmController.getUserData(iduff);
     if (userUmm != null) {
       await _userUmmController.saveUserUmm(userUmm);
+      // Montar e salvar UserData
+      final userData = UserData(
+        name: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? userUmm.grad?.matriculas?[0].identificacao?.nome ?? "-",
+        nomesocial: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
+        matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
+        iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
+        curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
+        fotoUrl: null, // Preencher com lógica se necessário
+        dataValidadeMatricula: "-", // Preencher com lógica se necessário
+        bond: userUmm.activeBond?.objects?.outerObject?[1].innerObjects?.first.vinculacao?.vinculo ?? "-",
+        textoQrCodeCarteirinha: null, // Preencher depois se necessário
+        accessToken: await getAccessToken(),
+      );
+      await _userDataController.saveUserData(userData);
     }
     Get.offAllNamed(Routes.HOME);
   }

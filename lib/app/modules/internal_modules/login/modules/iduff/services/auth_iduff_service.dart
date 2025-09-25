@@ -219,8 +219,8 @@ class AuthIduffService {
       // Corrigido: monta a URL da foto usando o iduff obtido do userInfo
       String photoUrl = _assemblePhotoUrlWithIduff(iduff);
 
-      // Criar e salvar UserAuthModel
-      UserAuthModel userAuth = UserAuthModel(
+      // Criar e salvar UserIduffModel
+      UserIduffModel userAuth = UserIduffModel(
         iduff: iduff,
         fullName: userInfo["name"] ?? '-',
         email: userInfo["email"],
@@ -229,7 +229,7 @@ class AuthIduffService {
         vinculacao: userInfo["vinculacao"] ?? '-',
       );
 
-      String userResult = await _userAuthController.saveUserAuthModel(userAuth);
+      String userResult = await _userAuthController.saveUserIduffModel(userAuth);
       if (userResult != "success") {
         debugPrint("Erro ao salvar UserAuth: $userResult");
       }

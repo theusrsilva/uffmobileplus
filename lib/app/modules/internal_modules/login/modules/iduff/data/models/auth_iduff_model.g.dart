@@ -23,7 +23,7 @@ class AuthIduffModelAdapter extends TypeAdapter<AuthIduffModel> {
       codeVerifier: fields[3] as String?,
       authorizationCode: fields[4] as String?,
       isLogged: fields[5] as bool,
-      iduff: fields[6] as String,
+      iduff: fields[6] as String?,
     );
   }
 

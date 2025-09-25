@@ -7,19 +7,14 @@ import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/d
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth_iduff_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_auth_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_auth_model.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_data.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_umm_controller.dart';
 import 'package:uffmobileplus/app/config/secrets.dart';
 
 class ExternalCarteirinhaService extends GetxService {
-  late UserUmmController _userUmmController;
-  late UserUmmModel userUmmModel = UserUmmModel();
-
-  late UserAuthController _userAuthController;
-  late UserAuthModel userAuthModel = UserAuthModel();
-
-  late AuthIduffController _authIduffController;
-  late AuthIduffModel authIduffModel = AuthIduffModel();
+  late UserDataController _userDataController;
+  late UserData userData = UserData();
 
   final AuthIduffService _auth = AuthIduffService();
 
@@ -33,14 +28,9 @@ class ExternalCarteirinhaService extends GetxService {
   }
 
   Future<void> initialize() async {
-    _userUmmController = Get.find<UserUmmController>();
-    userUmmModel = (await _userUmmController.getUserUmm())!;
+    _userDataController = Get.find<UserDataController>();
+    userData = (await _userDataController.getUserData())!;
 
-    _userAuthController = Get.find<UserAuthController>();
-    userAuthModel = (await _userAuthController.getUserAuthModel())!;
-
-    _authIduffController = Get.find<AuthIduffController>();
-    authIduffModel = (await _authIduffController.getAuthInformation())!;
   }
 
   String getUserName() {
@@ -68,7 +58,7 @@ class ExternalCarteirinhaService extends GetxService {
 
   String getUserPhotoUrl() {
     //return userUmmModel.grad?.matriculas?[selecteEnrollment].identificacao?.foto ?? "";
-    return userAuthModel.photoUrl ?? "";
+    return userIduffModel.photoUrl ?? "";
   }
 
   String getUserValidity() {

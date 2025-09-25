@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'user_auth_model.g.dart';
 
 @HiveType(typeId: 0)
-class UserAuthModel extends HiveObject {
+class UserIduffModel extends HiveObject {
   @HiveField(0)
   String? iduff;
 
@@ -22,7 +22,7 @@ class UserAuthModel extends HiveObject {
   @HiveField(5)
   String? vinculacao;
 
-  UserAuthModel({
+  UserIduffModel({
     this.iduff,
     this.fullName,
     this.email,
@@ -31,8 +31,8 @@ class UserAuthModel extends HiveObject {
     this.vinculacao,
   });
 
-  factory UserAuthModel.fromJson(Map<String, dynamic> json) {
-    return UserAuthModel(
+  factory UserIduffModel.fromJson(Map<String, dynamic> json) {
+    return UserIduffModel(
       iduff: json['iduff'],
       fullName: json['fullName'],
       email: json['email'],
@@ -55,6 +55,6 @@ class UserAuthModel extends HiveObject {
 
   @override
   String toString() {
-    return 'UserAuthModel(iduff: $iduff, fullName: $fullName, email: $email, photoUrl: $photoUrl, registration: $registration, vinculacao: $vinculacao)';
+    return 'UserIduffModel(iduff: $iduff, fullName: $fullName, email: $email, photoUrl: $photoUrl, registration: $registration, vinculacao: $vinculacao)';
   }
 }
