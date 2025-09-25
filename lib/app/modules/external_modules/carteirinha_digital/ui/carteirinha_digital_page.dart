@@ -300,7 +300,7 @@ class CarteirinhaDigitalPage extends StatelessWidget {
       CarteirinhaDigitalController controller, BuildContext context) {
     return Stack(children: [
       QrImageView(
-        data: "",//controller.cardInformation!.validationCode,
+        data: controller.qrCodeData,
         version: QrVersions.auto,
       ),
       AnimatedOpacity(
