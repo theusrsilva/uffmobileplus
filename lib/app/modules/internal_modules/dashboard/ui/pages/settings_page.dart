@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
+import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -15,14 +16,49 @@ class SettingsPage extends StatelessWidget {
         ),
         child: CustomScrollView(
           slivers: [
-            _sliverAppBar("Configurações"), // TODO: internacionalizar
+            _sliverAppBar(BaseTranslationKeys.settings.tr),
+            // TODO: substituir por SettingsItem
             _settingsItem(
               Icons.info_outline,
-              "Sobre", // TODO: internacionalizar
-              "Informações sobre o aplicativo", // TODO: internacionalizar
+              BaseTranslationKeys.about.tr, 
+              BaseTranslationKeys.aboutDescription.tr, 
               onTap: () {
                 Get.to(() => AboutPage());
               },
+            ),
+            SettingsItem(
+              icon: Icon(Icons.language, color: Colors.white),
+              main: DropdownButton<Locale>(
+                value: Get.locale,
+                dropdownColor: Colors.grey[800],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                underline: Container(), // Remove underline
+                // Ao suportar um novo idioma, adicionar novo par
+                // na lista abaixo
+                // TODO: extrair essa lista para algum outro lugar?
+                items:
+                    [
+                      {'locale': Locale('pt', 'BR'), 'display': 'Português (BR)'},
+                      {'locale': Locale('en', 'US'), 'display': 'English (US)'},
+                    ].map((item) {
+                      Locale locale = item['locale'] as Locale;
+                      String displayString = item['display'] as String;
+
+                      return DropdownMenuItem<Locale>(
+                        value: locale,
+                        child: Text(displayString)
+                      );
+                    }).toList(),
+                onChanged: (Locale? newValue) {
+                  if (newValue != null) Get.updateLocale(newValue);
+                },
+              ),
+              description: BaseTranslationKeys.langDescription.tr,
+              trailing: null, // No chevron needed since it's a dropdown
             ),
           ],
         ),
@@ -80,6 +116,46 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           trailing: Icon(Icons.chevron_right, color: Colors.white70),
+          onTap: onTap,
+        ),
+      ),
+    );
+  }
+}
+
+class SettingsItem extends StatelessWidget {
+  final Icon icon;
+  final Widget main;
+  final String description;
+  final VoidCallback? onTap;
+  final Widget? trailing;
+
+  const SettingsItem({
+    super.key,
+    required this.icon,
+    required this.main,
+    required this.description,
+    this.onTap,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: ListTile(
+          leading: icon,
+          title: main,
+          subtitle: Text(
+            description,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.white70,
+            ),
+          ),
+          trailing: trailing,
           onTap: onTap,
         ),
       ),

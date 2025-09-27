@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
+import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 
 class RestaurantModulesController extends GetxController {
 
@@ -8,7 +9,7 @@ class RestaurantModulesController extends GetxController {
   List<RestaurantModules> restaurantModulesList = [
     RestaurantModules(
         iconSrc: 'assets/icons/validator_qr_code.svg',
-        subtitle: 'Catraca-Online',
+        subtitle: BaseTranslationKeys.onlineTurnstile,
         page: Routes.ONLINE_TURNSTILE,
         url: '',
         interrogation: false,

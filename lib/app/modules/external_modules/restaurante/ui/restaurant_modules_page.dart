@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/controller/restaurant_modules_controller.dart';
+import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
 
@@ -25,7 +26,7 @@ class RestaurantModulesPage extends StatelessWidget {
                   // AppBar que se comporta como uma sliver (pode ser expandida/colapsada)
                   SliverAppBar(
                     foregroundColor: Colors.white,
-                    title: Text("Restaurante Universitário"),
+                    title: Text(BaseTranslationKeys.universityCafeteria.tr),
                     centerTitle: true,
                     elevation: 8, // Sombra da AppBar
 
@@ -179,7 +180,7 @@ class RestaurantModulesPage extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  restaurantModule.subtitle,
+                  restaurantModule.subtitle.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
