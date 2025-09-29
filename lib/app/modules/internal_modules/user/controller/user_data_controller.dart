@@ -1,31 +1,57 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:uffmobileplus/app/config/secrets.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth_iduff_service.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_iduff_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_data.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_data_repository.dart';
 
 class UserDataController extends GetxController {
+  
   UserDataController();
 
   final UserDataRepository _userDataRepository = UserDataRepository();
-  UserData? _userData;
+  final AuthIduffService _auth = AuthIduffService();
 
-  // Métodos para persistência
-  Future<String> saveUserData(UserData userData) async {
-    _userData = userData;
+  late final UserIduffController _userIduffController;
+
+   @override
+  void onInit() {
+
+    _userIduffController = Get.find<UserIduffController>();
+
+    super.onInit();
+  }
+  
+  Future<String> saveUserData(UserUmmModel userUmm) async {
+    final userData = UserData(
+        name: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? userUmm.grad?.matriculas?[0].identificacao?.nome ?? "-",
+        nomesocial: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
+        matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
+        iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
+        curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
+        fotoUrl: await _userIduffController.getPhotoUrl(),
+        dataValidadeMatricula: (await getSaciData())[1],
+        textoQrCodeCarteirinha: (await getSaciData())[0],
+        accessToken: await _userIduffController.getAccessToken(),
+      );
+     
     return await _userDataRepository.saveUserData(userData);
   }
 
   Future<UserData?> getUserData() async {
-    _userData = await _userDataRepository.getUserData();
-    return _userData;
+    return await _userDataRepository.getUserData();
+    
   }
 
   Future<String> deleteUserData() async {
-    _userData = null;
     return await _userDataRepository.deleteUserData();
   }
 
   Future<String> clearAllUserData() async {
-    _userData = null;
     return await _userDataRepository.clearAllUserData();
   }
 
@@ -33,34 +59,31 @@ class UserDataController extends GetxController {
     return await _userDataRepository.hasUserData();
   }
 
-  // Getters e setters para todos os campos
-  String? get name => _userData?.name;
-  set name(String? value) { _userData?.name = value; }
+  Future<List<dynamic>> getSaciData() async {
+    await _auth.refreshToken();
 
-  String? get nomesocial => _userData?.nomesocial;
-  set nomesocial(String? value) { _userData?.nomesocial = value; }
+    String? token = await _userIduffController.getAccessToken();
+    String? iduffUsuario = await _userIduffController.getIduff();
 
-  String? get matricula => _userData?.matricula;
-  set matricula(String? value) { _userData?.matricula = value; }
-
-  String? get iduff => _userData?.iduff;
-  set iduff(String? value) { _userData?.iduff = value; }
-
-  String? get curso => _userData?.curso;
-  set curso(String? value) { _userData?.curso = value; }
-
-  String? get fotoUrl => _userData?.fotoUrl;
-  set fotoUrl(String? value) { _userData?.fotoUrl = value; }
-
-  String? get dataValidadeMatricula => _userData?.dataValidadeMatricula;
-  set dataValidadeMatricula(String? value) { _userData?.dataValidadeMatricula = value; }
-
-  String? get bond => _userData?.bond;
-  set bond(String? value) { _userData?.bond = value; }
-
-  String? get textoQrCodeCarteirinha => _userData?.textoQrCodeCarteirinha;
-  set textoQrCodeCarteirinha(String? value) { _userData?.textoQrCodeCarteirinha = value; }
-
-  String? get accessToken => _userData?.accessToken;
-  set accessToken(String? value) { _userData?.accessToken = value; }
+    var uri = Uri.https(
+      Secrets.carteirinhaValidationHost,
+      Secrets.carteirinhaValidationPath,
+      {
+        "iduff_usuario": iduffUsuario,
+        "token": token ?? "",
+      },
+    );
+    http.Response response = await _auth.client!.post(uri);
+    var responseDecoded = json.decode(response.body);
+    if (response.statusCode == 200) {
+      if (responseDecoded["content"] != null) {
+        final data = json.decode(response.body);
+        final textoQrCode = data['content']['texto_qr_code'].toString();
+        final dataValidade =
+            data['content']['dados_usuario']['vinculacoes'][0]['data_validade'];
+        return [textoQrCode, dataValidade];
+      }
+    }
+    return [];
+}
 }

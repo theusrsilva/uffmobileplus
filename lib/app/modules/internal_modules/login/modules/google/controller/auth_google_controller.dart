@@ -6,12 +6,10 @@ import 'package:uffmobileplus/app/routes/app_routes.dart';
 class AuthGoogleController extends GetxController {
   AuthGoogleController();
 
-  late final AuthGoogleService _authGoogle;
-  late final UserGoogleRepository _userRepository;
+  late final AuthGoogleService _authGoogle = AuthGoogleService();
+  late final UserGoogleRepository _userRepository = UserGoogleRepository();
 
   void onInit() {
-    _authGoogle = Get.find<AuthGoogleService>();
-    _userRepository = Get.find<UserGoogleRepository>();
     super.onInit();
   }
 

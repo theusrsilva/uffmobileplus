@@ -10,8 +10,8 @@ import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/bindings/auth_iduff_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/ui/auth_iduff_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/splash/bindings/splash_bindings.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_auth_bindings.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_google_bindings.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_data_bindings.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_iduff_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_umm_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/web_view/bindings/webview_bindings.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
@@ -30,9 +30,10 @@ abstract class AppPages {
         SplashBindings(),
         LockDevelopModeBinding(),
         AuthIduffBindings(),
-        UserAuthBindings(),
+        UserIduffBindings(),
         UserUmmBindings(),
         AuthGoogleBindings(),
+        UserDataBindings(),
       ],
     ),
 
@@ -45,13 +46,15 @@ abstract class AppPages {
     GetPage(
       name: Routes.LOGIN,
       page: () => LoginPage(),
-      bindings: [LoginBindings(), AuthGoogleBindings(), UserGoogleBindings()],
+      bindings: [LoginBindings(), AuthGoogleBindings(), UserDataBindings(),
+],
     ),
 
     GetPage(
       name: Routes.AUTH,
       page: () => AuthIduffPage(),
-      bindings: [AuthIduffBindings(), UserUmmBindings(), UserAuthBindings()],
+      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), UserDataBindings(),
+],
     ),
 
     GetPage(
@@ -77,7 +80,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.CARTEIRINHA_DIGITAL,
       page: () => CarteirinhaDigitalPage(),
-      bindings: [AuthIduffBindings(), UserUmmBindings(), UserAuthBindings(), CarteirinhaDigitalBindings()],
+      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), CarteirinhaDigitalBindings(), UserDataBindings()],
     ),
   ];
 }

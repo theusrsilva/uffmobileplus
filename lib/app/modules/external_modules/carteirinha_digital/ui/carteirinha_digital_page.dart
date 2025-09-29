@@ -102,7 +102,7 @@ class CarteirinhaDigitalPage extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                               controller.getUserName(),
+                               controller.getUserName()!,
                                     
                                 style: const TextStyle(color: Colors.white),
                               ),

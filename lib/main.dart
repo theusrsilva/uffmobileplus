@@ -11,7 +11,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   await HiveService.init();
 
   runApp(
@@ -19,32 +18,9 @@ Future<void> main() async {
       debugShowCheckedModeBanner: true,
 
       title: "UFF Mobile Plus",
-      initialRoute: Routes.SPLASH, //Rota inicial
-      defaultTransition: Transition.fade, // Transição de telas padrão
-      //theme: pickCurrentAppTheme() , //Tema personalizado app
-      getPages: AppPages
-          .pages, // Seu array de navegação contendo as rotas e suas pages
-      /*
-    locale: localeStr == null
-        ? Get.deviceLocale
-        : Locale(localeStr), // Língua padrão é a do dispositivo
-
-    fallbackLocale: const Locale('pt', 'BR'),
-    translations: International(),
-    localizationsDelegates: const [
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      SfGlobalLocalizations.delegate
-    ],
-    supportedLocales: const [
-      Locale('pt'),
-      Locale('en'),
-      Locale('it'),
-      Locale('fr'),
-      Locale('es'),
-    ],
-    */
+      initialRoute: Routes.SPLASH, 
+      defaultTransition: Transition.fade, 
+      getPages: AppPages.pages, 
     ),
   );
 }

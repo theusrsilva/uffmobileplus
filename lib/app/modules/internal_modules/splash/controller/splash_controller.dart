@@ -31,11 +31,13 @@ class SplashController extends GetxController {
 
     if (_isDevMode && !kDebugMode) {
       Get.offAllNamed(Routes.YOU_SHALL_NOT_PASS);
-    } else {
+    }
+    else {
       if (_login) {
         debugPrint("Auto Login successful");
         _authController.loginSuccessful();
-      } else {
+      } 
+      else {
         debugPrint("Auto Login failed");
         Get.offAllNamed(Routes.LOGIN);
       }

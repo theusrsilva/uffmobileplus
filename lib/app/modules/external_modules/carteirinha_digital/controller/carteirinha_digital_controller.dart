@@ -26,7 +26,7 @@ class CarteirinhaDigitalController extends GetxController {
     update();
   }
 
-  String getUserName() => _carteirinhaService.getUserName();
+  String? getUserName() => _carteirinhaService.getUserName();
   String getUserMatricula() => _carteirinhaService.getUserMatricula();
   String getUserIdUFF() => _carteirinhaService.getUserIdUFF();
   String getUserCourse() => _carteirinhaService.getUserCourse();

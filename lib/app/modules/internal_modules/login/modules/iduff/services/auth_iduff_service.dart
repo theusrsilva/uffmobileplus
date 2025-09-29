@@ -7,11 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:uffmobileplus/app/config/secrets.dart';
 import 'package:uffmobileplus/app/data/services/HTTPService.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/controller/auth_iduff_controller.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/data/models/auth_iduff_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/utils/auth_client.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_auth_controller.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_auth_model.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_iduff_controller.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_iduff_model.dart';
 
 enum KeycloakEnvironment { homologacao, production }
 
@@ -33,8 +31,7 @@ class AuthIduffService {
   final FlutterAppAuth appAuth = FlutterAppAuth();
   bool isAuthenticated = false;
 
-  AuthIduffController get _authController => Get.find<AuthIduffController>();
-  UserAuthController get _userAuthController => Get.find<UserAuthController>();
+  UserIduffController get _userIduffController => Get.find<UserIduffController>();
 
   AuthenticatedClient? client;
 
@@ -82,7 +79,7 @@ class AuthIduffService {
     debugPrint("calling authorize");
     try {
       //Troca o refresh token por um novo access token quando o atual expira, sem precisar fazer login completo novamente.
-      if (await _authController.getRefreshToken() != null) {
+      if (await _userIduffController.getRefreshToken() != null) {
         tokenResponse = await _getNewAccessToken();
 
         if (tokenResponse != null) {
@@ -113,8 +110,6 @@ class AuthIduffService {
       "Authorization": "Bearer ${tokenResponse.accessToken}",
     });
     Get.put(HTTPService(this), permanent: true);
-
-    //sharedUser.accessToken = tokenResponse.accessToken;
 
     return _setInfo(tokenResponse, authorizationResponse);
   }
@@ -174,7 +169,7 @@ class AuthIduffService {
   Future<bool> refreshToken() async {
     TokenResponse? tokenResponse;
 
-    if (await _authController.getRefreshToken() == null) return false;
+    if (await _userIduffController.getRefreshToken() == null) return false;
 
     tokenResponse = await _getNewAccessToken();
 
@@ -199,7 +194,7 @@ class AuthIduffService {
 
       String iduff = userInfo["preferred_username"];
 
-      // Criar e salvar AuthIduffModel
+      // Criar AuthIduffModel
       AuthIduffModel authInfo = AuthIduffModel(
         accessToken: tokenResponse.accessToken,
         refreshToken: tokenResponse.refreshToken,
@@ -208,15 +203,8 @@ class AuthIduffService {
         codeVerifier: authorizationResponse?.codeVerifier,
         authorizationCode: authorizationResponse?.authorizationCode,
         isLogged: true,
-        iduff: iduff,
-      );
+        );
 
-      String authResult = await _authController.saveAuthInformation(authInfo);
-      if (authResult != "success") {
-        debugPrint("Erro ao salvar AuthInformation: $authResult");
-      }
-
-      // Corrigido: monta a URL da foto usando o iduff obtido do userInfo
       String photoUrl = _assemblePhotoUrlWithIduff(iduff);
 
       // Criar e salvar UserIduffModel
@@ -227,9 +215,10 @@ class AuthIduffService {
         photoUrl: photoUrl,
         registration: userInfo["registration"] ?? '-',
         vinculacao: userInfo["vinculacao"] ?? '-',
+        authData: authInfo,
       );
 
-      String userResult = await _userAuthController.saveUserIduffModel(userAuth);
+      String userResult = await _userIduffController.saveUserIduffModel(userAuth);
       if (userResult != "success") {
         debugPrint("Erro ao salvar UserAuth: $userResult");
       }
@@ -254,9 +243,9 @@ class AuthIduffService {
           keycloakInfo[keycloakEnv]!.appId,
           Secrets.redirectUri,
           grantType: 'refresh_token',
-          refreshToken: await _authController.getRefreshToken(),
-          authorizationCode: await _authController.getAuthorizationCode(),
-          codeVerifier: await _authController.getCodeVerifier(),
+          refreshToken: await _userIduffController.getRefreshToken(),
+          authorizationCode: await _userIduffController.getAuthorizationCode(),
+          codeVerifier: await _userIduffController.getCodeVerifier(),
           serviceConfiguration: keycloakInfo[keycloakEnv]!.authServiceConfig,
           scopes: Secrets.authScopes,
         ),
@@ -291,14 +280,10 @@ class AuthIduffService {
     }
   }
 
-  String _assemblePhotoUrl() {
-    return "${Secrets.userPhotoBaseUrl}/${_authController.getIduff()}";
-  }
-
   Future<bool> tryLogin() async {
     TokenResponse? tokenResponse;
     try {
-      String? refreshToken = await _authController.getRefreshToken();
+      String? refreshToken = await _userIduffController.getRefreshToken();
       if (refreshToken == null) return false;
       tokenResponse = await _getNewAccessToken();
       debugPrint("Access Token $tokenResponse!!!!!!!!!");
