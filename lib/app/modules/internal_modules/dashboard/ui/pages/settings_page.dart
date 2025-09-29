@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/controller/settings_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
@@ -10,7 +11,8 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: GetBuilder<SettingsController>(
+        builder: (SettingsController controller) { return Container(
         decoration: BoxDecoration(
           gradient: AppColors.darkBlueToBlackGradient(),
         ),
@@ -60,9 +62,27 @@ class SettingsPage extends StatelessWidget {
               description: BaseTranslationKeys.langDescription.tr,
               trailing: null, // No chevron needed since it's a dropdown
             ),
+            // Botão de logout
+            SettingsItem(
+              icon: Icon(Icons.logout, color: Colors.white),
+              main: Text(
+                'Sair',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              description: 'Entrar como outro usuário.',
+              trailing: null,
+              onTap: () {
+                controller.logoutIduff();
+              },
+            ),
           ],
         ),
-      ),
+      );
+  },      ),
     );
   }
 

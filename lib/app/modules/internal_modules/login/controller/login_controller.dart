@@ -27,7 +27,7 @@ class LoginController extends GetxController {
   }
 
   goToCarteirinhaPage() {
-    //Get.toNamed(Routes.CARTEIRINHA_DIGITAL);
+    Get.toNamed(Routes.CARTEIRINHA_DIGITAL);
   }
 
   loginAnonimous() {

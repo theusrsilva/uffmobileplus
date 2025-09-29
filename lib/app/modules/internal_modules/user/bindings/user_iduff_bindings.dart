@@ -4,6 +4,6 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_
 class UserIduffBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<UserIduffController>(() => UserIduffController());
-  }
+   Get.put<UserIduffController>(UserIduffController(), permanent: true);  }
 }
+  
