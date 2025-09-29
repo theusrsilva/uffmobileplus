@@ -42,6 +42,10 @@ class UserDataController extends GetxController {
     return await _userDataRepository.saveUserData(userData);
   }
 
+  Future<String> updateQrData() async {
+    return await _userDataRepository.updateQrData((await getSaciData())[0]);
+  }
+
   Future<UserData?> getUserData() async {
     return await _userDataRepository.getUserData();
     

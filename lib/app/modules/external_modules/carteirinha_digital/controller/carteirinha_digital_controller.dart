@@ -20,8 +20,8 @@ class CarteirinhaDigitalController extends GetxController {
 
   Future<void> _initAsync() async {
     _carteirinhaService = Get.find<ExternalCarteirinhaService>();
-    await _carteirinhaService.initialize(); // Aguarda o carregamento do service
-    qrCodeData = await _carteirinhaService.getQrCodeData();
+    await _carteirinhaService.initialize(); 
+    qrCodeData =  await _carteirinhaService.getQrCodeData();
     isBusy = false;
     update();
   }
@@ -38,5 +38,11 @@ class CarteirinhaDigitalController extends GetxController {
   void handleTimeout() {
     isExpired = true;
     update();
+  }
+
+  updateQrCodeData() async {
+    qrCodeData = await _carteirinhaService.updateQrCodeData();
+    update();
+
   }
 }

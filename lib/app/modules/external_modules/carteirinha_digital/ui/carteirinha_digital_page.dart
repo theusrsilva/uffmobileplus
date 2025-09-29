@@ -29,8 +29,8 @@ class CarteirinhaDigitalPage extends StatelessWidget {
               ),
               actions: <Widget>[
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.question_mark),
+                  onPressed: () {controller.updateQrCodeData();},
+                  icon: const Icon(Icons.refresh),
                 ),
               ],
             ),
@@ -312,7 +312,7 @@ class CarteirinhaDigitalPage extends StatelessWidget {
             alignment: Alignment.center,
             child: IconButton(
               iconSize: 40,
-              onPressed: () => true,//controller.getCardInformation(true),
+              onPressed: () => controller.updateQrCodeData(),
               icon: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,

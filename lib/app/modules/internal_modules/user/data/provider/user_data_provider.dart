@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
+import 'package:uffmobileplus/app/config/secrets.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_data.dart';
 
 class UserDataProvider {
@@ -58,4 +62,35 @@ class UserDataProvider {
       return false;
     }
   }
+
+  Future<String> updateQrData(String textoQrCodeCarteirinha) async {
+    try {
+      var box = await Hive.openBox<UserData>(_collectionPath);
+      UserData? user = box.get(_userKey);
+
+      if (user == null) {
+        return "Nenhuma informação de usuário encontrada";
+      }
+
+      UserData userData = UserData(
+        name: user.name,
+        nomesocial: user.nomesocial,
+        matricula: user.matricula,
+        iduff: user.iduff,
+        curso: user.curso,
+        fotoUrl: user.fotoUrl,
+        dataValidadeMatricula: user.dataValidadeMatricula,
+        textoQrCodeCarteirinha: textoQrCodeCarteirinha,
+        accessToken: user.accessToken,
+
+      );
+
+      await box.put(_userKey, userData);
+      return textoQrCodeCarteirinha;
+    } catch (e) {
+      return "Erro ao atualizar status de login no Hive: $e";
+    }
+  }
+
+  
 }

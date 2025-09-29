@@ -61,4 +61,8 @@ class ExternalCarteirinhaService extends GetxService {
   Future<String> getQrCodeData() async {
     return _userData.textoQrCodeCarteirinha ?? "";
   }
+
+  Future<String> updateQrCodeData() async {
+    return  await _userDataController.updateQrData();
+  }
 }
