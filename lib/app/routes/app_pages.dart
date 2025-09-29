@@ -4,6 +4,8 @@ import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/u
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/online_turnstile/ui/online_turnstile_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/bindings/auth_google_bindings.dart';
@@ -74,7 +76,21 @@ abstract class AppPages {
       name: Routes.RESTAURANT_MODULES,
       page: () => RestaurantModulesPage(),
     ),
-    GetPage(name: Routes.ONLINE_TURNSTILE, page: () => OnlineTurnstilePage()),
+
+    GetPage(
+      name: Routes.ONLINE_TURNSTILE, 
+      page: () => OnlineTurnstilePage()
+    ),
+
+    GetPage(
+      name: Routes.SETTINGS,
+      page: () => SettingsPage()
+    ),
+
+    GetPage(
+      name: Routes.ABOUT,
+      page: () => AboutPage()
+    )
 
     //Carteirinha Digital - Externa
     GetPage(
