@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/controller/about_controller.dart';
+import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
 class AboutPage extends StatelessWidget {
@@ -18,20 +20,20 @@ class AboutPage extends StatelessWidget {
           builder: (controller) {
             return CustomScrollView(
               slivers: [
-                _sliverAppBar("Sobre"), // TODO: internacionalizar
+                _sliverAppBar(BaseTranslationKeys.aboutAppBarPageTitle.tr),
                 _aboutItemCard(
                   Icons.home,
-                  "Nome da versão", // TODO: internacionalizar
+                  BaseTranslationKeys.versionName.tr, 
                   controller.versionName,
                 ),
                 _aboutItemCard(
                   Icons.update,
-                  "Código da versão", // TODO: internacionalizar
+                  BaseTranslationKeys.versionCode.tr, 
                   controller.versionCode,
                 ),
                 _aboutItemCard(
                   Icons.phone_android,
-                  "Dispositivo", // TODO: internacionalizar
+                  BaseTranslationKeys.device.tr,
                   controller.device,
                 ),
               ],

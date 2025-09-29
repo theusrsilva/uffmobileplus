@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
+import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 
 class ExternalModulesController extends GetxController {
 
@@ -19,7 +20,7 @@ class ExternalModulesController extends GetxController {
 
     ExternalModules(
         iconSrc: 'assets/icons/bandejapp.svg',
-        subtitle: 'Restaurante',
+        subtitle: BaseTranslationKeys.restaurant,
         page: Routes.RESTAURANT_MODULES,
         url: '',
         interrogation: false,
