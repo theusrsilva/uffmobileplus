@@ -98,5 +98,12 @@ abstract class AppPages {
       page: () => CarteirinhaDigitalPage(),
       bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), CarteirinhaDigitalBindings(), UserDataBindings()],
     ),
+
+    // Plano de Estudos - Externo
+    GetPage(
+      name: Routes.STUDY_PLAN,
+      page: () => CarteirinhaDigitalPage(),
+      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), CarteirinhaDigitalBindings(), UserDataBindings()],
+    ),
   ];
 }
