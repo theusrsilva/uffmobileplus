@@ -49,6 +49,27 @@ class International extends Translations {
       versionCode: 'Código da versão',
       device: 'Dispositivo',
     ),
+     'it_IT': _translation(
+      // PersistentTabView
+    shortcuts: 'Scorciatoie',
+    // External Modules Page
+    modules: 'Moduli',
+    // External Modules Controller
+    restaurant: 'Ristorante',
+    // Restaurant Modules Page
+    universityCafeteria: 'Mensa Universitaria',
+    // Restaurant Modules Controller
+    onlineTurnstile: 'Tornello Online',
+    // Settings page
+    settings: 'Impostazioni',
+    about: 'Informazioni', 
+    aboutDescription: "Dettagli dell'app",
+    langDescription: "Cambia la lingua dell'app",
+    aboutAppBarPageTitle: 'Informazioni',
+    versionName: 'Versione',
+    versionCode: 'Codice build',
+    device: 'Dispositivo',
+  ),
   };
 
   // TODO: fazer um método do tipo para cada página e depois concatenar todos???
