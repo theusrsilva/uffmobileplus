@@ -3,6 +3,8 @@ import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/b
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/online_turnstile/ui/online_turnstile_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/study_plan/binding/study_plan_bindings.dart';
+import 'package:uffmobileplus/app/modules/external_modules/study_plan/ui/study_plan_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings_page.dart';
@@ -102,8 +104,8 @@ abstract class AppPages {
     // Plano de Estudos - Externo
     GetPage(
       name: Routes.STUDY_PLAN,
-      page: () => CarteirinhaDigitalPage(),
-      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), CarteirinhaDigitalBindings(), UserDataBindings()],
+      page: () => StudyPlanPage(),
+      bindings: [StudyPlanBindings()],
     ),
   ];
 }

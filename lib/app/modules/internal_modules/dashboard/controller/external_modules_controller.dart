@@ -9,25 +9,32 @@ class ExternalModulesController extends GetxController {
   List<ExternalModules> externalModulesList = [
 
     ExternalModules(
-        iconSrc: 'assets/carteirinha_digital/icons/carteirinha.svg',
-        subtitle: 'Carteirinha Digital',
-        page: Routes.CARTEIRINHA_DIGITAL,
-        url: '',
-        interrogation: false,
-        //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
-        //gdiGroups: null
+      iconSrc: 'assets/carteirinha_digital/icons/carteirinha.svg',
+      subtitle: 'Carteirinha Digital',
+      page: Routes.CARTEIRINHA_DIGITAL,
+      url: '',
+      interrogation: false,
+      //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
+      //gdiGroups: null
     ),
 
     ExternalModules(
-        iconSrc: 'assets/icons/bandejapp.svg',
-        subtitle: BaseTranslationKeys.restaurant,
-        page: Routes.RESTAURANT_MODULES,
-        url: '',
-        interrogation: false,
-        //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
-        //gdiGroups: null
+      iconSrc: 'assets/icons/bandejapp.svg',
+      subtitle: BaseTranslationKeys.restaurant,
+      page: Routes.RESTAURANT_MODULES,
+      url: '',
+      interrogation: false,
+      //availableFor: [ProfileTypes.student, ProfileTypes.professor, ProfileTypes.employee],
+      //gdiGroups: null
     ),
-    
+
+    ExternalModules(
+      iconSrc: 'assets/icons/bandejapp.svg',
+      subtitle: 'Plano de estudos',
+      page: Routes.STUDY_PLAN,
+      url: '',
+      interrogation: false,
+    ),
 
   ];
 
@@ -67,6 +74,4 @@ class ExternalModules {
       this.interrogation,
       //this.gdiGroups})
       });
-
-      
 }

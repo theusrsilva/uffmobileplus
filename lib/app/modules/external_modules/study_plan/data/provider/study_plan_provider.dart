@@ -1,27 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
+import 'package:uffmobileplus/app/data/services/external_carteirinha_service.dart';
 import 'dart:convert';
 import '../../../../../data/services/HTTPService.dart';
+import '../../../../../data/services/external_study_plan_service.dart';
 import '../models/study_plan_model.dart';
 import 'package:get/get.dart';
 
 class StudyPlanProvider {
-  final _box = Hive.box<StudyPlanModel>();
 
   Future<StudyPlanModel?> getStudyPlan(bool isRefresh) async {
     StudyPlanModel? plan;
-
-    if (!isRefresh) {
-      plan = _box.get('studyPlan');
-    }
-
-    if (plan == null) {
-      plan = await _getStudyPlanData();
+    plan = await _getStudyPlanData("Aluno");
       if (plan == null) {
         return null;
       }
-      _box.put(reg, plan);
-    }
+    // final box = await Hive.openBox<StudyPlanModel>('studyPlan');
+    //
+    // if (!isRefresh) {
+    //   plan = box.get(mat);
+    // }
+    //
+    // if (plan == null) {
+    //   plan = await _getStudyPlanData("Aluno");
+    //   if (plan == null) {
+    //     return null;
+    //   }
+    //   box.put(mat, plan);
+    // }
     return plan;
   }
 
@@ -29,15 +35,16 @@ class StudyPlanProvider {
 
   }
 
-  Future<StudyPlanModel?> _getStudyPlanData() async {
-    HTTPService httpService = Get.find<HTTPService>();
+  Future<StudyPlanModel?> _getStudyPlanData(String vinculo) async {
+    final httpService = Get.find<HTTPService>();
 
     Uri url = Uri(
       host: 'app.uff.br',
-      path: '/umm/v2/umplus/get_studyplan',
+      path: '/umm/api/get_studyplan',
       scheme: 'https',
       queryParameters: {
-        //'vinculo': Get.find<UserRepository>().getVinculacao()
+        'vinculo': vinculo,
+        'matricula':
       }
     );
 

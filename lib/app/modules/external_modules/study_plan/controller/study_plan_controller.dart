@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:uffmobileplus/app/data/services/external_study_plan_service.dart';
 import '../data/models/study_plan_model.dart';
 import '../data/repository/study_plan_repository.dart';
 
@@ -10,8 +11,8 @@ class StudyPlanController extends GetxController {
 
   @override
   void onInit() {
-    _fetchStudyPlan(false);
     super.onInit();
+    _fetchStudyPlan(false);
   }
 
   _fetchStudyPlan(bool isRefresh) async {
