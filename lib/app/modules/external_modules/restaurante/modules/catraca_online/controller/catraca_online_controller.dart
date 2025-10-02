@@ -12,13 +12,19 @@ class CatracaOnlineController extends GetxController {
   CatracaOnlineRepository repository = CatracaOnlineRepository();
 
   RxBool isAreaBusy = false.obs;
-  RxBool isTTransactionBusy = false.obs;
+  RxBool isTransactionBusy = false.obs;
+  RxBool isReadQRCodeBusy = false.obs;
+  RxBool isNotFirstLoad = false.obs;
   late RxList<AreaModel> areas = <AreaModel>[].obs;
   late RxList<AreaModel> selectedArea = <AreaModel>[].obs;
   late RxList<OperatorTransactionModel> operatorTransactions =
       <OperatorTransactionModel>[].obs;
   late final String iduff;
   late String? token;
+  bool isTransactionValid = false;
+  bool isQrCodeValid = true;
+  String transactionResultMessage = "";
+  String transactionUsername = "";
 
   @override
   void onInit() {
@@ -42,7 +48,7 @@ class CatracaOnlineController extends GetxController {
   }
 
   Future<void> fetchOperatorTransactions() async {
-    isTTransactionBusy.value = true;
+    isTransactionBusy.value = true;
     token = await service.getAccessToken();
     operatorTransactions.value = await repository.getOperatorTransactions(
       iduff,
@@ -50,12 +56,62 @@ class CatracaOnlineController extends GetxController {
       selectedArea[0].id,
     );
     print(operatorTransactions.toString());
-    isTTransactionBusy.value = false;
+    isTransactionBusy.value = false;
   }
 
   void selectArea(index) {
     selectedArea.value = [areas[index]];
     fetchOperatorTransactions();
     Get.toNamed(Routes.VALIDAR_PAGAMENTO);
+  }
+
+  void readCode() {
+    Get.toNamed(Routes.RESULTADO_PAGE);
+  }
+
+  void initialise() async {
+    isReadQRCodeBusy.value = true;
+    isNotFirstLoad.value = true;
+
+    try {
+      String? barcodeScanRes = await _scanQRCode();
+
+      if (barcodeScanRes == null || barcodeScanRes == "-1") {
+        Get.back();
+      } else {
+        RegExp exp = RegExp(
+          "^ididentificacao_iduff=([0-9]|[A-z])*&hash=([0-9]|[a-z]){40}\$",
+        );
+
+        String? match = exp.stringMatch(barcodeScanRes);
+
+        /* if (match == barcodeScanRes) {
+          Map responseMessage = await sctmService.validatePayment(
+            barcodeScanRes,
+          );
+          transactionResultMessage = responseMessage["message"];
+          isTransactionValid = responseMessage["valid"];
+
+          if (responseMessage["name"] != null)
+            transactionUsername = responseMessage["name"];
+          else
+            transactionUsername = "";
+          isQrCodeValid = true;
+        } else {
+          isQrCodeValid = false;
+        }
+*/
+        isReadQRCodeBusy.value = false;
+      }
+    } catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
+      Get.back();
+    }
+  }
+
+  Future<String?> _scanQRCode() async {
+    final result = await Get.toNamed(Routes.LEITOR_QRCODE);
+    return result as String?;
   }
 }

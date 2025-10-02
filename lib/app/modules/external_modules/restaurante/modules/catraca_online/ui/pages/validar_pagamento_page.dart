@@ -34,7 +34,7 @@ class ValidarPagamentoPage extends GetView<CatracaOnlineController> {
       ),
 
       body: Obx(
-        () => controller.isTTransactionBusy.value
+        () => controller.isTransactionBusy.value
             ? Center(child: CustomProgressDisplay())
             : Container(
                 decoration: BoxDecoration(
@@ -154,7 +154,7 @@ class ValidarPagamentoPage extends GetView<CatracaOnlineController> {
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           onPressed: () {
-                            // model.readCode(context);
+                            controller.readCode();
                           },
                         ),
                       ),

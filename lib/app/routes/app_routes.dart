@@ -13,6 +13,8 @@ abstract class Routes {
   static const RESTAURANT_MODULES = '/restaurant_modules';
   static const CATRACA_ONLINE = '/catraca_online';
   static const VALIDAR_PAGAMENTO = '/validar_pagamento';
+  static const RESULTADO_PAGE = '/resultado_page';
+  static const LEITOR_QRCODE = '/leitor_qrcode';
 
   //Carteirinha Digital - Externo
   static const CARTEIRINHA_DIGITAL = '/carteirinha_digital';
