@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/binding/carteirinha_digital_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/radio/bindings/radio_bindings.dart';
+import 'package:uffmobileplus/app/modules/external_modules/radio/ui/radio_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/online_turnstile/ui/online_turnstile_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
@@ -97,6 +99,15 @@ abstract class AppPages {
       name: Routes.CARTEIRINHA_DIGITAL,
       page: () => CarteirinhaDigitalPage(),
       bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), CarteirinhaDigitalBindings(), UserDataBindings()],
+    ),
+
+    // Radio
+    GetPage(
+      name: Routes.RADIO,
+      page:() => Radio(),
+      bindings: [
+        RadioBindings()
+      ]
     ),
   ];
 }

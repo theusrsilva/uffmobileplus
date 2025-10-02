@@ -34,6 +34,7 @@ dependencies:
   firebase_core: ^4.1.0
   package_info_plus: ^9.0.0
   qr_flutter: ^4.1.0
+  radio_player: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -53,3 +54,4 @@ flutter:
     - assets/carteirinha_digital/
     - assets/carteirinha_digital/images/
     - assets/carteirinha_digital/icons/
+    - assets/radio/icons/radio.svg

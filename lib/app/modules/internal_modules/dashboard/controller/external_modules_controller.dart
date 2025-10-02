@@ -10,7 +10,7 @@ class ExternalModulesController extends GetxController {
 
     ExternalModules(
         iconSrc: 'assets/carteirinha_digital/icons/carteirinha.svg',
-        subtitle: 'Carteirinha Digital',
+        subtitle: 'Carteirinha Digital', // TODO: traduzir
         page: Routes.CARTEIRINHA_DIGITAL,
         url: '',
         interrogation: false,
@@ -28,9 +28,16 @@ class ExternalModulesController extends GetxController {
         //gdiGroups: null
     ),
     
-
+    ExternalModules(
+      iconSrc: 'assets/radio/icons/radio.svg', 
+      subtitle: 'Radio Pop Goiaba', // TODO: traduzir 
+      page: Routes.RADIO,
+      url: '',
+      interrogation: false
+    )
   ];
 
+   // TODO: parece redundante; melhor usar Get.toNamed direto?
    void navigateTo(
     String route,
     {
@@ -67,6 +74,4 @@ class ExternalModules {
       this.interrogation,
       //this.gdiGroups})
       });
-
-      
 }

@@ -17,4 +17,7 @@ abstract class Routes {
 
   //Carteirinha Digital - Externo
   static const CARTEIRINHA_DIGITAL = '/carteirinha_digital';
+
+  //Radio Pop Goiaba
+  static const RADIO = '/radio';
 }
