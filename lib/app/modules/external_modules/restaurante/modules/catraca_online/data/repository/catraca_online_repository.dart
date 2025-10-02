@@ -12,11 +12,25 @@ class CatracaOnlineRepository {
   }
 
   Future<List<OperatorTransactionModel>> getOperatorTransactions(
-    iduff,
-    token,
-    areaId,
+    String iduff,
+    String token,
+    String areaId,
   ) async {
     return await catracaOnlineProvider.getOperatorTransactions(
+      iduff,
+      token,
+      areaId,
+    );
+  }
+
+  Future<Map<String, dynamic>> validatePayment(
+    String paymentCode,
+    String iduff,
+    String token,
+    String areaId,
+  ) async {
+    return await catracaOnlineProvider.validatePayment(
+      paymentCode,
       iduff,
       token,
       areaId,

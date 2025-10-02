@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/data/model/operator_transaction.dart';
 
 class CatracaOnlineProvider {
-  Future<List<AreaModel>> getAreas(iduff, token) async {
+  Future<List<AreaModel>> getAreas(String iduff, String token) async {
     var uri = Uri.https(
       Secrets.areasValidationHost,
       Secrets.areasValidationPath,
@@ -24,9 +24,9 @@ class CatracaOnlineProvider {
   }
 
   Future<List<OperatorTransactionModel>> getOperatorTransactions(
-    iduff,
-    token,
-    areaId,
+    String iduff,
+    String token,
+    String areaId,
   ) async {
     var uri = Uri.https(
       Secrets.transactionsValidationHost,
@@ -50,6 +50,67 @@ class CatracaOnlineProvider {
           .toList();
     } else {
       throw Exception('Failed to get Operator Transactions');
+    }
+  }
+
+  Future<Map<String, dynamic>> validatePayment(
+    String paymentCode,
+    String iduff,
+    String token,
+    String areaId,
+  ) async {
+    String idUffUser = "";
+    String hash = "";
+    if (paymentCode != null) {
+      const startIdUff = "ididentificacao_iduff=";
+      const endIdUff = "&";
+
+      final startIndexIdUff = paymentCode.indexOf(startIdUff);
+      final endIndexIdUff = paymentCode.indexOf(
+        endIdUff,
+        startIndexIdUff + startIdUff.length,
+      );
+      idUffUser = paymentCode.substring(
+        startIndexIdUff + startIdUff.length,
+        endIndexIdUff,
+      );
+
+      final startHash = "hash=";
+      final startIndexHash = paymentCode.indexOf(startHash);
+      hash = paymentCode.substring(startIndexHash + startHash.length);
+    }
+
+    var uri = Uri.https(
+      Secrets.validarIntencaoPagamentoHost,
+      Secrets.validarIntencaoPagamentoPath,
+      {
+        "iduff_operador": iduff,
+        "ididentificacao_iduff": idUffUser,
+        "area_debito_operador_id": areaId,
+        "hash": hash,
+        "token": token,
+      },
+    );
+    http.Response response = await http.post(uri);
+
+    Map responseMap = json.decode(response.body);
+
+    if (responseMap["status"] == "0") {
+      return {
+        "valid": true,
+        "message": responseMap["content"]["valor_debitado"],
+        "name": responseMap["content"]["nome"],
+      };
+    } else {
+      if (responseMap["content"]["nome"] != null) {
+        return {
+          "valid": false,
+          "message": responseMap["content"]["descricao"],
+          "name": responseMap["content"]["nome"],
+        };
+      } else {
+        return {"valid": false, "message": responseMap["content"]["descricao"]};
+      }
     }
   }
 }

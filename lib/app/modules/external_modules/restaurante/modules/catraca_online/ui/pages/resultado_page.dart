@@ -48,7 +48,9 @@ class ResultadoPage extends GetView<CatracaOnlineController> {
                       children: <Widget>[
                         Container(
                           width: double.infinity,
-                          color: Colors.white,
+                          decoration: BoxDecoration(
+                            gradient: AppColors.darkBlueToBlackGradient(),
+                          ),
                           child: TransactionMessage(
                             isQrCodeValid: controller.isQrCodeValid,
                             isTransactionValid: controller.isTransactionValid,

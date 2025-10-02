@@ -7,12 +7,14 @@ class TransactionMessage extends StatelessWidget {
   final String transactionUsername;
   final FloatingActionButton actionButton;
 
-  const TransactionMessage(
-      {super.key, required this.isQrCodeValid,
-      required this.isTransactionValid,
-      required this.transactionResultMessage,
-      required this.transactionUsername,
-      required this.actionButton});
+  const TransactionMessage({
+    super.key,
+    required this.isQrCodeValid,
+    required this.isTransactionValid,
+    required this.transactionResultMessage,
+    required this.transactionUsername,
+    required this.actionButton,
+  });
 
   @override
   Widget build(Object context) {
@@ -20,13 +22,19 @@ class TransactionMessage extends StatelessWidget {
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(transactionUsername != "" ? "Usuário" : "",
-                  style: TextStyle(fontSize: 20)),
+              Text(
+                transactionUsername != "" ? "Usuário" : "",
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 22, vertical: 12),
                 child: Text(
                   transactionUsername,
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -41,7 +49,10 @@ class TransactionMessage extends StatelessWidget {
                       child: Text(
                         "Valor Debitado: R\$ $transactionResultMessage",
                         style: TextStyle(
-                            fontStyle: FontStyle.italic, fontSize: 18),
+                          fontStyle: FontStyle.italic,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     )
@@ -50,15 +61,19 @@ class TransactionMessage extends StatelessWidget {
                       child: Text(
                         "Não foi possível debitar o valor: $transactionResultMessage",
                         style: TextStyle(
-                            fontStyle: FontStyle.italic, fontSize: 18),
+                          fontStyle: FontStyle.italic,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
               Container(
-                  width: 192,
-                  height: 40,
-                  margin: EdgeInsets.only(top: 50, bottom: 24),
-                  child: actionButton),
+                width: 192,
+                height: 40,
+                margin: EdgeInsets.only(top: 50, bottom: 24),
+                child: actionButton,
+              ),
             ],
           )
         : Column(
@@ -72,16 +87,13 @@ class TransactionMessage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Icon(
-                Icons.cancel,
-                color: Colors.red,
-                size: 120.0,
-              ),
+              Icon(Icons.cancel, color: Colors.red, size: 120.0),
               Container(
-                  width: 192,
-                  height: 40,
-                  margin: EdgeInsets.only(top: 25, bottom: 24),
-                  child: actionButton),
+                width: 192,
+                height: 40,
+                margin: EdgeInsets.only(top: 25, bottom: 24),
+                child: actionButton,
+              ),
             ],
           );
   }

@@ -52,8 +52,8 @@ class CatracaOnlineController extends GetxController {
     token = await service.getAccessToken();
     operatorTransactions.value = await repository.getOperatorTransactions(
       iduff,
-      token,
-      selectedArea[0].id,
+      token!,
+      selectedArea[0].id.toString(),
     );
     print(operatorTransactions.toString());
     isTransactionBusy.value = false;
@@ -74,20 +74,23 @@ class CatracaOnlineController extends GetxController {
     isNotFirstLoad.value = true;
 
     try {
-      String? barcodeScanRes = await _scanQRCode();
+      String? qrCodeScanRes = await _scanQRCode();
 
-      if (barcodeScanRes == null || barcodeScanRes == "-1") {
+      if (qrCodeScanRes == null || qrCodeScanRes == "-1") {
         Get.back();
       } else {
         RegExp exp = RegExp(
           "^ididentificacao_iduff=([0-9]|[A-z])*&hash=([0-9]|[a-z]){40}\$",
         );
 
-        String? match = exp.stringMatch(barcodeScanRes);
+        String? match = exp.stringMatch(qrCodeScanRes);
 
-        /* if (match == barcodeScanRes) {
-          Map responseMessage = await sctmService.validatePayment(
-            barcodeScanRes,
+        if (match == qrCodeScanRes) {
+          Map responseMessage = await repository.validatePayment(
+            qrCodeScanRes,
+            iduff,
+            token!,
+            selectedArea[0].id.toString(),
           );
           transactionResultMessage = responseMessage["message"];
           isTransactionValid = responseMessage["valid"];
@@ -100,7 +103,7 @@ class CatracaOnlineController extends GetxController {
         } else {
           isQrCodeValid = false;
         }
-*/
+
         isReadQRCodeBusy.value = false;
       }
     } catch (e, stackTrace) {
