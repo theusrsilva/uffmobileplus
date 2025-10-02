@@ -4,7 +4,7 @@ import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/c
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 import 'package:uffmobileplus/app/utils/ui_components/custom_progress_display.dart';
 
-class CatracaOnlinePage extends GetView<CatracaOnlinePageController> {
+class CatracaOnlinePage extends GetView<CatracaOnlineController> {
   const CatracaOnlinePage({super.key});
 
   @override
@@ -33,7 +33,7 @@ class CatracaOnlinePage extends GetView<CatracaOnlinePageController> {
       ),
 
       body: Obx(
-        () => controller.isbusy.value
+        () => controller.isAreaBusy.value
             ? Center(child: CustomProgressDisplay())
             : Container(
                 decoration: BoxDecoration(
@@ -85,7 +85,7 @@ class CatracaOnlinePage extends GetView<CatracaOnlinePageController> {
                                 size: 24.0,
                               ),
                               onTap: () {
-                                //controller.selectArea(index, context);
+                                controller.selectArea(index);
                               },
                             ),
                           );

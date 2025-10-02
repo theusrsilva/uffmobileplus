@@ -1,4 +1,5 @@
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/data/model/area.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/data/model/operator_transaction.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/data/provider/catraca_online_provider.dart';
 
 class CatracaOnlineRepository {
@@ -8,5 +9,17 @@ class CatracaOnlineRepository {
 
   Future<List<AreaModel>> getAreas(iduff, token) async {
     return await catracaOnlineProvider.getAreas(iduff, token);
+  }
+
+  Future<List<OperatorTransactionModel>> getOperatorTransactions(
+    iduff,
+    token,
+    areaId,
+  ) async {
+    return await catracaOnlineProvider.getOperatorTransactions(
+      iduff,
+      token,
+      areaId,
+    );
   }
 }

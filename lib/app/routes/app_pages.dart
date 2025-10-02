@@ -3,6 +3,7 @@ import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/b
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/bindings/catraca_online_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/catraca_online_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/validar_pagamento_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
@@ -49,18 +50,13 @@ abstract class AppPages {
     GetPage(
       name: Routes.LOGIN,
       page: () => LoginPage(),
-      bindings: [LoginBindings(), AuthGoogleBindings(), UserDataBindings()],
+      bindings: [LoginBindings(), AuthGoogleBindings()],
     ),
 
     GetPage(
       name: Routes.AUTH,
       page: () => AuthIduffPage(),
-      bindings: [
-        AuthIduffBindings(),
-        UserUmmBindings(),
-        UserIduffBindings(),
-        UserDataBindings(),
-      ],
+      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings()],
     ),
 
     GetPage(
@@ -84,7 +80,13 @@ abstract class AppPages {
     GetPage(
       name: Routes.CATRACA_ONLINE,
       page: () => CatracaOnlinePage(),
-      bindings: [CatracaOnlineBindings(), UserDataBindings()],
+      bindings: [CatracaOnlineBindings()],
+    ),
+
+    GetPage(
+      name: Routes.VALIDAR_PAGAMENTO,
+      page: () => ValidarPagamentoPage(),
+      bindings: [CatracaOnlineBindings()],
     ),
 
     GetPage(name: Routes.SETTINGS, page: () => SettingsPage()),
@@ -100,7 +102,6 @@ abstract class AppPages {
         UserUmmBindings(),
         UserIduffBindings(),
         CarteirinhaDigitalBindings(),
-        UserDataBindings(),
       ],
     ),
   ];

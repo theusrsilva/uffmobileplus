@@ -12,6 +12,7 @@ abstract class Routes {
   //Restaurante - Externo
   static const RESTAURANT_MODULES = '/restaurant_modules';
   static const CATRACA_ONLINE = '/catraca_online';
+  static const VALIDAR_PAGAMENTO = '/validar_pagamento';
 
   //Carteirinha Digital - Externo
   static const CARTEIRINHA_DIGITAL = '/carteirinha_digital';

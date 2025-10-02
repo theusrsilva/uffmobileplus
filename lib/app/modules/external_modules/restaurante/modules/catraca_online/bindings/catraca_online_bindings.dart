@@ -7,8 +7,8 @@ class CatracaOnlineBindings implements Bindings {
   void dependencies() {
     Get.put<ExternalCatracaService>(ExternalCatracaService(), permanent: true);
 
-    Get.put<CatracaOnlinePageController>(
-      CatracaOnlinePageController(),
+    Get.put<CatracaOnlineController>(
+      CatracaOnlineController(),
       permanent: true,
     );
   }
