@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/binding/carteirinha_digital_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
-import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/online_turnstile/ui/online_turnstile_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/bindings/catraca_online_bindings.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/catraca_online_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
@@ -48,15 +49,18 @@ abstract class AppPages {
     GetPage(
       name: Routes.LOGIN,
       page: () => LoginPage(),
-      bindings: [LoginBindings(), AuthGoogleBindings(), UserDataBindings(),
-],
+      bindings: [LoginBindings(), AuthGoogleBindings(), UserDataBindings()],
     ),
 
     GetPage(
       name: Routes.AUTH,
       page: () => AuthIduffPage(),
-      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), UserDataBindings(),
-],
+      bindings: [
+        AuthIduffBindings(),
+        UserUmmBindings(),
+        UserIduffBindings(),
+        UserDataBindings(),
+      ],
     ),
 
     GetPage(
@@ -78,25 +82,26 @@ abstract class AppPages {
     ),
 
     GetPage(
-      name: Routes.ONLINE_TURNSTILE, 
-      page: () => OnlineTurnstilePage()
+      name: Routes.CATRACA_ONLINE,
+      page: () => CatracaOnlinePage(),
+      bindings: [CatracaOnlineBindings(), UserDataBindings()],
     ),
 
-    GetPage(
-      name: Routes.SETTINGS,
-      page: () => SettingsPage()
-    ),
+    GetPage(name: Routes.SETTINGS, page: () => SettingsPage()),
 
-    GetPage(
-      name: Routes.ABOUT,
-      page: () => AboutPage()
-    ),
+    GetPage(name: Routes.ABOUT, page: () => AboutPage()),
 
     //Carteirinha Digital - Externa
     GetPage(
       name: Routes.CARTEIRINHA_DIGITAL,
       page: () => CarteirinhaDigitalPage(),
-      bindings: [AuthIduffBindings(), UserUmmBindings(), UserIduffBindings(), CarteirinhaDigitalBindings(), UserDataBindings()],
+      bindings: [
+        AuthIduffBindings(),
+        UserUmmBindings(),
+        UserIduffBindings(),
+        CarteirinhaDigitalBindings(),
+        UserDataBindings(),
+      ],
     ),
   ];
 }

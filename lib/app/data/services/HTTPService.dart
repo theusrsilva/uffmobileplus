@@ -1,10 +1,11 @@
+import 'package:get/get.dart' hide Response;
 import 'package:http/http.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth_iduff_service.dart';
 
 class HTTPService {
-  final AuthIduffService _auth;
+  HTTPService();
 
-  HTTPService(this._auth);
+  final AuthIduffService _auth = Get.find<AuthIduffService>();
 
   Future<Response?> get(Uri url, {Map<String, String>? headers}) {
     return _exec(() => _auth.client!.get(url, headers: headers));

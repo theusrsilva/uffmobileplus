@@ -31,7 +31,8 @@ class AuthIduffService {
   final FlutterAppAuth appAuth = FlutterAppAuth();
   bool isAuthenticated = false;
 
-  UserIduffController get _userIduffController => Get.find<UserIduffController>();
+  UserIduffController get _userIduffController =>
+      Get.find<UserIduffController>();
 
   AuthenticatedClient? client;
 
@@ -109,7 +110,7 @@ class AuthIduffService {
     client = AuthenticatedClient({
       "Authorization": "Bearer ${tokenResponse.accessToken}",
     });
-    Get.put(HTTPService(this), permanent: true);
+    Get.put(HTTPService(), permanent: true);
 
     return _setInfo(tokenResponse, authorizationResponse);
   }
@@ -179,7 +180,7 @@ class AuthIduffService {
     client = AuthenticatedClient({
       "Authorization": "Bearer ${tokenResponse.accessToken}",
     });
-    Get.put(HTTPService(this), permanent: true);
+    Get.put(HTTPService(), permanent: true);
     return _setInfo(tokenResponse, null);
   }
 
@@ -203,7 +204,7 @@ class AuthIduffService {
         codeVerifier: authorizationResponse?.codeVerifier,
         authorizationCode: authorizationResponse?.authorizationCode,
         isLogged: true,
-        );
+      );
 
       String photoUrl = _assemblePhotoUrlWithIduff(iduff);
 
@@ -218,7 +219,9 @@ class AuthIduffService {
         authData: authInfo,
       );
 
-      String userResult = await _userIduffController.saveUserIduffModel(userAuth);
+      String userResult = await _userIduffController.saveUserIduffModel(
+        userAuth,
+      );
       if (userResult != "success") {
         debugPrint("Erro ao salvar UserAuth: $userResult");
       }
@@ -294,7 +297,14 @@ class AuthIduffService {
       }
     }
     if (tokenResponse == null) return false;
-    Get.put(HTTPService(this), permanent: true);
+    Get.put(HTTPService(), permanent: true);
     return _setInfo(tokenResponse, null);
+  }
+
+  Future<String?> getAccessToken() async {
+    // Tenta renovar o token, se possível
+    await refreshToken();
+    // Busca o access token salvo no UserIduffController
+    return await _userIduffController.getAccessToken();
   }
 }

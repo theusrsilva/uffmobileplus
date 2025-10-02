@@ -7,7 +7,7 @@ import 'package:uffmobileplus/app/routes/app_routes.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_data_controller.dart';
 
 class AuthIduffController extends GetxController {
-  final AuthIduffService _authIduffService = AuthIduffService();
+  final AuthIduffService _authIduffService = Get.find<AuthIduffService>();
 
   late final UserUmmController _userUmmController;
   late final UserDataController _userDataController;
@@ -64,5 +64,4 @@ class AuthIduffController extends GetxController {
   Future<bool> tryLogin() async {
     return await _authIduffService.tryLogin();
   }
-  
 }

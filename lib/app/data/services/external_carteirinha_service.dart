@@ -1,16 +1,6 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/controller/auth_iduff_controller.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth_iduff_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_data_controller.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_iduff_controller.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_iduff_model.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_data.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_umm_controller.dart';
-import 'package:uffmobileplus/app/config/secrets.dart';
 
 class ExternalCarteirinhaService extends GetxService {
   late UserDataController _userDataController;
@@ -63,6 +53,6 @@ class ExternalCarteirinhaService extends GetxService {
   }
 
   Future<String> updateQrCodeData() async {
-    return  await _userDataController.updateQrData();
+    return await _userDataController.updateQrData();
   }
 }
