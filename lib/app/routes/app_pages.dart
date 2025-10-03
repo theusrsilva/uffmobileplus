@@ -9,9 +9,9 @@ import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/c
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/validar_pagamento_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/utils/leitor_qr_code.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restaurant_modules_page.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/dashboard_binding.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings/about_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings/settings_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/bindings/auth_google_bindings.dart';
@@ -23,7 +23,7 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_id
 import 'package:uffmobileplus/app/modules/internal_modules/user/bindings/user_umm_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/web_view/bindings/webview_bindings.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/home_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/dashboard.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/ui/login_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/splash/ui/splash_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/ui/lock_develop_mode_page.dart';
@@ -71,8 +71,8 @@ abstract class AppPages {
 
     GetPage(
       name: Routes.HOME,
-      page: () => HomePage(),
-      bindings: [HomePageBinding(), UserIduffBindings()],
+      page: () => Dashboard(),
+      bindings: [DashboardBinding(), UserIduffBindings()],
     ),
 
     //Restaurante
