@@ -35,7 +35,7 @@ class CatracaOnlineProvider {
         "iduff_operador": iduff,
         "token": token,
         "area_id": areaId.toString(),
-        "minutos": "144000", // Últimas 24 horas = 1440
+        "minutos": "1440", // Últimas 24 horas = 1440
       },
     );
 

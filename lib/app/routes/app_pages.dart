@@ -3,6 +3,7 @@ import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/b
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/bindings/catraca_online_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/catraca_online_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/resultado_detalhado.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/resultado_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/validar_pagamento_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/utils/leitor_qr_code.dart';
@@ -100,6 +101,12 @@ abstract class AppPages {
     GetPage(
       name: Routes.LEITOR_QRCODE,
       page: () => LeitorQrCodePage(),
+      bindings: [CatracaOnlineBindings()],
+    ),
+
+    GetPage(
+      name: Routes.RESULTADO_DETALHADO_PAGE,
+      page: () => ResultadoDetalhadoPage(),
       bindings: [CatracaOnlineBindings()],
     ),
 

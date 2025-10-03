@@ -5,6 +5,7 @@ import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
 class LeitorQrCodeController extends GetxController {
   final MobileScannerController cameraController = MobileScannerController();
+  bool isProcessing = false; // Adicione esta variável
 
   @override
   void onClose() {
@@ -18,7 +19,10 @@ class LeitorQrCodePage extends GetView<LeitorQrCodeController> {
 
   void onQrCodeDetected(BuildContext context, BarcodeCapture capture) {
     final List<Barcode> barcodes = capture.barcodes;
-    if (barcodes.isNotEmpty && barcodes.first.rawValue != null) {
+    if (barcodes.isNotEmpty &&
+        barcodes.first.rawValue != null &&
+        !controller.isProcessing) {
+      controller.isProcessing = true; // Bloqueia novas detecções
       Get.back(result: barcodes.first.rawValue);
     }
   }

@@ -15,6 +15,7 @@ class CatracaOnlineController extends GetxController {
   RxBool isTransactionBusy = false.obs;
   RxBool isReadQRCodeBusy = false.obs;
   RxBool isNotFirstLoad = false.obs;
+  RxBool isDetailResultBusy = false.obs;
   late RxList<AreaModel> areas = <AreaModel>[].obs;
   late RxList<AreaModel> selectedArea = <AreaModel>[].obs;
   late RxList<OperatorTransactionModel> operatorTransactions =
@@ -25,6 +26,8 @@ class CatracaOnlineController extends GetxController {
   bool isQrCodeValid = true;
   String transactionResultMessage = "";
   String transactionUsername = "";
+  Rx<OperatorTransactionModel> selectedTransaction =
+      OperatorTransactionModel().obs;
 
   @override
   void onInit() {
@@ -55,7 +58,6 @@ class CatracaOnlineController extends GetxController {
       token!,
       selectedArea[0].id.toString(),
     );
-    print(operatorTransactions.toString());
     isTransactionBusy.value = false;
   }
 
@@ -95,26 +97,30 @@ class CatracaOnlineController extends GetxController {
           transactionResultMessage = responseMessage["message"];
           isTransactionValid = responseMessage["valid"];
 
-          if (responseMessage["name"] != null)
+          if (responseMessage["name"] != null) {
             transactionUsername = responseMessage["name"];
-          else
+          } else {
             transactionUsername = "";
+          }
           isQrCodeValid = true;
         } else {
           isQrCodeValid = false;
         }
-
-        isReadQRCodeBusy.value = false;
       }
-    } catch (e, stackTrace) {
-      print(e);
-      print(stackTrace);
-      Get.back();
-    }
+    } catch (e) {}
+    isReadQRCodeBusy.value = false;
   }
 
   Future<String?> _scanQRCode() async {
     final result = await Get.toNamed(Routes.LEITOR_QRCODE);
     return result as String?;
+  }
+
+  void goToDetalhado(OperatorTransactionModel transaction) {
+    selectedTransaction.value = transaction;
+    Get.toNamed(
+      Routes.RESULTADO_DETALHADO_PAGE,
+      arguments: {'operatorTransaction': transaction},
+    );
   }
 }

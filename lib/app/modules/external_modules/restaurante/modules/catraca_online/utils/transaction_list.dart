@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/controller/catraca_online_controller.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/data/model/operator_transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<OperatorTransactionModel> operatorTransactions;
 
   const TransactionList(this.operatorTransactions);
-
   @override
   Widget build(BuildContext context) {
+    final CatracaOnlineController controller =
+        Get.find<CatracaOnlineController>();
     return ListView.builder(
       itemCount: operatorTransactions.length + 1,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
@@ -29,12 +32,7 @@ class TransactionList extends StatelessWidget {
         } else {
           return GestureDetector(
             onTap: () async {
-              /* Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      TransactionDetailsScreen(operatorTransactions[index - 1]),
-                ),
-              );*/
+              controller.goToDetalhado(operatorTransactions[index - 1]);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),

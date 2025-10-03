@@ -15,6 +15,7 @@ abstract class Routes {
   static const VALIDAR_PAGAMENTO = '/validar_pagamento';
   static const RESULTADO_PAGE = '/resultado_page';
   static const LEITOR_QRCODE = '/leitor_qrcode';
+  static const RESULTADO_DETALHADO_PAGE = '/resultado_detalhado_page';
 
   //Carteirinha Digital - Externo
   static const CARTEIRINHA_DIGITAL = '/carteirinha_digital';
