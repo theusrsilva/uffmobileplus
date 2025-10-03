@@ -16,18 +16,23 @@ class CatracaOnlineController extends GetxController {
   RxBool isReadQRCodeBusy = false.obs;
   RxBool isNotFirstLoad = false.obs;
   RxBool isDetailResultBusy = false.obs;
+  RxBool isManualValidationBusy = false.obs;
+
   late RxList<AreaModel> areas = <AreaModel>[].obs;
   late RxList<AreaModel> selectedArea = <AreaModel>[].obs;
   late RxList<OperatorTransactionModel> operatorTransactions =
       <OperatorTransactionModel>[].obs;
+
+  Rx<OperatorTransactionModel> selectedTransaction =
+      OperatorTransactionModel().obs;
+
   late final String iduff;
   late String? token;
+
   bool isTransactionValid = false;
   bool isQrCodeValid = true;
   String transactionResultMessage = "";
   String transactionUsername = "";
-  Rx<OperatorTransactionModel> selectedTransaction =
-      OperatorTransactionModel().obs;
 
   @override
   void onInit() {

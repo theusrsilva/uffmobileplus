@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/controller/catraca_online_controller.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/utils/transaction_list.dart';
+import 'package:uffmobileplus/app/routes/app_routes.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 import 'package:uffmobileplus/app/utils/ui_components/custom_progress_display.dart';
 
@@ -119,7 +120,7 @@ class ValidarPagamentoPage extends GetView<CatracaOnlineController> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                //model.goToManualValidation(context);
+                                Get.toNamed(Routes.VALIDAR_MANUALMENTE);
                               },
                               child: Text(
                                 "Liberar Manualmente ",
