@@ -1,5 +1,8 @@
 import 'package:hive/hive.dart';
 
+part 'discipline_model.g.dart';
+
+@HiveType(typeId: 20)
 class Discipline extends HiveObject {
   @HiveField(0)
   String? cod;

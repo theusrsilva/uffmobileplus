@@ -14,9 +14,6 @@ import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/se
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings/settings_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/study_plan/binding/study_plan_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/study_plan/ui/study_plan_page.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/home_page_binding.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/about_page.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/bindings/auth_google_bindings.dart';
@@ -142,7 +139,11 @@ abstract class AppPages {
     GetPage(
       name: Routes.STUDY_PLAN,
       page: () => StudyPlanPage(),
-      bindings: [StudyPlanBindings()],
+      bindings: [
+        StudyPlanBindings(),
+        AuthIduffBindings(),
+        UserIduffBindings()
+      ],
     ),
   ];
 }

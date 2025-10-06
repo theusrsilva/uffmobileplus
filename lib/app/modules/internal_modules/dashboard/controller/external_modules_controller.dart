@@ -29,7 +29,7 @@ class ExternalModulesController extends GetxController {
     ),
 
     ExternalModules(
-      iconSrc: 'assets/icons/bandejapp.svg',
+      iconSrc: 'assets/icons/plano.svg',
       subtitle: 'Plano de estudos',
       page: Routes.STUDY_PLAN,
       url: '',

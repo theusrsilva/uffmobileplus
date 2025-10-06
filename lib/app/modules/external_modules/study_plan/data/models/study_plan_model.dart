@@ -1,7 +1,11 @@
 import 'package:hive/hive.dart';
 import 'package:uffmobileplus/app/modules/external_modules/study_plan/data/models/discipline_model.dart';
+import 'package:uffmobileplus/app/modules/external_modules/study_plan/data/models/weekday_model.dart';
 
-class StudyPlanModel {
+part 'study_plan_model.g.dart';
+
+@HiveType(typeId: 21)
+class StudyPlanModel extends HiveObject {
   @HiveField(0)
   Map<WeekDay, List<Discipline>?>? plan;
 
@@ -30,16 +34,4 @@ class StudyPlanModel {
 
     return disciplines;
   }
-}
-
-enum WeekDay {
-  monday ("segunda"),
-  tuesday ("terca"),
-  wednesday ("quarta"),
-  thursday ("quinta"),
-  friday ("sexta"),
-  saturday ("sabado");
-
-  final String description;
-  const WeekDay(this.description);
 }
