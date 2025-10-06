@@ -1,44 +1,23 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/controller/home_page_controller.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/controller/dashboard_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/external_modules_page.dart';
-import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/home_page.dart';
+import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings/settings_page.dart';
 import 'package:uffmobileplus/app/utils/base_translation_keys.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
-class HomePage extends GetView<HomePageController> {
+class Dashboard extends GetView<DashboardController> {
+  const Dashboard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        backgroundColor: AppColors.darkBlue(),
-        leading: IconButton(
-          icon: Icon(Icons.menu, color: Colors.white,),
-          onPressed: () {
-            // Menu hambúrguer - por enquanto sem ação
-          },
-        ),
-        title: Center(child: Text('UM +', style: TextStyle(color: Colors.white))),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.help_outline, color: Colors.white,),
-            onPressed: () {
-              // Interrogação - por enquanto sem ação
-            },
-          ),
-        ],
-      ),*/
       body: PersistentTabView(
         context,
         controller: controller.tabController,
-        screens: [
-          Container(child: Center(child: Text('Atalhos'))),
-          ExternalModulesPage(),
-          SettingsPage(),
-        ],
+        screens: [HomePage(), ExternalModulesPage(), SettingsPage()],
         items: [
           // Tela Principal
           PersistentBottomNavBarItem(

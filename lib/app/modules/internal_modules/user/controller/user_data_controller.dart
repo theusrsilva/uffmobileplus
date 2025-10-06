@@ -10,35 +10,36 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_data_repository.dart';
 
 class UserDataController extends GetxController {
-  
   UserDataController();
 
   final UserDataRepository _userDataRepository = UserDataRepository();
-  final AuthIduffService _auth = AuthIduffService();
+  final AuthIduffService _auth = Get.find<AuthIduffService>();
 
   late final UserIduffController _userIduffController;
 
-   @override
+  @override
   void onInit() {
-
     _userIduffController = Get.find<UserIduffController>();
 
     super.onInit();
   }
-  
+
   Future<String> saveUserData(UserUmmModel userUmm) async {
     final userData = UserData(
-        name: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? userUmm.grad?.matriculas?[0].identificacao?.nome ?? "-",
-        nomesocial: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
-        matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
-        iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
-        curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
-        fotoUrl: await _userIduffController.getPhotoUrl(),
-        dataValidadeMatricula: (await getSaciData())[1],
-        textoQrCodeCarteirinha: (await getSaciData())[0],
-        accessToken: await _userIduffController.getAccessToken(),
-      );
-     
+      name:
+          userUmm.grad?.matriculas?[0].identificacao?.nomesocial ??
+          userUmm.grad?.matriculas?[0].identificacao?.nome ??
+          "-",
+      nomesocial: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
+      matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
+      iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
+      curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
+      fotoUrl: await _userIduffController.getPhotoUrl(),
+      dataValidadeMatricula: (await getSaciData())[1],
+      textoQrCodeCarteirinha: (await getSaciData())[0],
+      accessToken: await _auth.getAccessToken(),
+    );
+
     return await _userDataRepository.saveUserData(userData);
   }
 
@@ -48,7 +49,6 @@ class UserDataController extends GetxController {
 
   Future<UserData?> getUserData() async {
     return await _userDataRepository.getUserData();
-    
   }
 
   Future<String> deleteUserData() async {
@@ -72,10 +72,7 @@ class UserDataController extends GetxController {
     var uri = Uri.https(
       Secrets.carteirinhaValidationHost,
       Secrets.carteirinhaValidationPath,
-      {
-        "iduff_usuario": iduffUsuario,
-        "token": token ?? "",
-      },
+      {"iduff_usuario": iduffUsuario, "token": token ?? ""},
     );
     http.Response response = await _auth.client!.post(uri);
     var responseDecoded = json.decode(response.body);
@@ -89,5 +86,5 @@ class UserDataController extends GetxController {
       }
     }
     return [];
-}
+  }
 }
