@@ -26,6 +26,8 @@ class International extends Translations {
       versionName: 'Version name',
       versionCode: 'Version code',
       device: 'Device',
+      logoutButton: 'Logout',
+      digitalIdInstructions: 'Present this QR code at the entrance for access.',
     ),
     'pt_BR': _translation(
       // PersistentTabView
@@ -48,6 +50,8 @@ class International extends Translations {
       versionName: 'Nome da versão',
       versionCode: 'Código da versão',
       device: 'Dispositivo',
+      logoutButton: 'Sair',
+      digitalIdInstructions: 'Apresente este QR code na entrada para ter acesso.',
     ),
      'it_IT': _translation(
       // PersistentTabView
@@ -69,6 +73,8 @@ class International extends Translations {
     versionName: 'Versione',
     versionCode: 'Codice build',
     device: 'Dispositivo',
+    logoutButton: 'Esci',
+    digitalIdInstructions: "Mostra questo QR code all'ingresso per accedere.",
   ),
   };
 
@@ -101,6 +107,8 @@ class International extends Translations {
     required String versionName,
     required String versionCode,
     required String device,
+    required String logoutButton,
+    required String digitalIdInstructions,
   }) {
     return {
       // PersistentTabView
@@ -123,6 +131,8 @@ class International extends Translations {
       BaseTranslationKeys.versionName: versionName,
       BaseTranslationKeys.versionCode: versionCode,
       BaseTranslationKeys.device: device,
+      BaseTranslationKeys.logoutButton: logoutButton,
+      BaseTranslationKeys.digitalIdInstructions: digitalIdInstructions,
     };
   }
 }
