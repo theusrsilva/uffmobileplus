@@ -141,8 +141,6 @@ abstract class AppPages {
       page: () => StudyPlanPage(),
       bindings: [
         StudyPlanBindings(),
-        AuthIduffBindings(),
-        UserIduffBindings()
       ],
     ),
   ];

@@ -30,17 +30,13 @@ class StudyPlanPage extends StatelessWidget {
             ),
           ),
         ),
-        body: Container(
-            decoration: BoxDecoration(
-              gradient: AppColors.darkBlueToBlackGradient(),
-            ),
-            child: controller.isLoading
+        body: controller.isLoading
                 ? Center(child: CustomProgressDisplay())
                 : (controller.studyPlan?.plan == null
                 ? Center(child: Text('no_study_plan_info'.tr))
-                : _tabViewWidget(controller.getStudyPlan()))),
+                : _tabViewWidget(controller.getStudyPlan())),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColors.darkBlue(),
+          backgroundColor: AppColors.mediumBlue(),
           child: const Icon(Icons.refresh, color: Colors.white,),
           onPressed: () => controller.refreshStudyPlan(),
         ),
@@ -53,26 +49,25 @@ class StudyPlanPage extends StatelessWidget {
       backgroundColor: Colors.white,
       contentLength: studyPlan.length,
       indicatorColor: AppColors.mediumBlue(),
-      separator: BorderSide(color: AppColors.darkBlue(), width: 1.0),
       tabBuilder: (index, isSelected) {
         WeekDay day = studyPlan.keys.elementAt(index);
         return Text(
-          dataToString(day),
+          weekdayToString(day),
           style: isSelected
               ? TextStyle(color: AppColors.mediumBlue())
               : const TextStyle()
         );
       },
       pageBuilder: (context, index, _) {
-        return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SizedBox.expand(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: AppColors.darkBlueToBlackGradient(),
-              ),
+        return SizedBox.expand(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: AppColors.darkBlueToBlackGradient(),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
               child: ListView.separated(
-                separatorBuilder: (___,__) => Divider(thickness: 2.0, color: AppColors.darkBlue(),),
+                separatorBuilder: (___,__) => Divider(thickness: 2.0, color: AppColors.alternativeMediumBlue(),),
                 itemCount: studyPlan.values.elementAt(index).length,
                 shrinkWrap: true,
                 itemBuilder: (context, innerIndex) {
@@ -80,16 +75,16 @@ class StudyPlanPage extends StatelessWidget {
                   return Column(
                     children: [
                       Text(subject.title ?? "", style: TextStyle(color: Colors.white)),
-                      Row(children: [Text('class_code'.tr, style: TextStyle(color: Colors.white)), Text(': ${subject.codClass}', style: TextStyle(color: Colors.white))]),
-                      Row(children: [Text('subject_code'.tr, style: TextStyle(color: Colors.white)), Text(': ${subject.cod}', style: TextStyle(color: Colors.white))]),
-                      Row(children: [Text('time'.tr, style: TextStyle(color: Colors.white)),
+                      Row(children: [Text("Turma", style: TextStyle(color: Colors.white)), Text(': ${subject.codClass}', style: TextStyle(color: Colors.white))]),
+                      Row(children: [Text("Código".tr, style: TextStyle(color: Colors.white)), Text(': ${subject.cod}', style: TextStyle(color: Colors.white))]),
+                      Row(children: [Text('Horário'.tr, style: TextStyle(color: Colors.white)),
                         Text(': ${subject.startTime} às ${subject.endTime}', style: TextStyle(color: Colors.white))]),
                       Row(children: [const Text('Status', style: TextStyle(color: Colors.white)), Text(': ${subject.status}', style: TextStyle(color: Colors.white))]),
                     ],
                   );
                 },
               ),
-            ),
+            )
           ),
         );
       }

@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:uffmobileplus/app/data/services/HTTPService.dart';
 import 'package:uffmobileplus/app/data/services/external_study_plan_service.dart';
 import '../models/study_plan_model.dart';
 import 'package:get/get.dart';
 
 class StudyPlanProvider {
-  final HTTPService _httpService = Get.find<HTTPService>();
   final ExternalStudyPlanService _studyPlanService = Get
       .find<ExternalStudyPlanService>();
 
@@ -60,7 +58,7 @@ class StudyPlanProvider {
             'StudyPlan api failed.\n Status Code: ${response.statusCode}');
       }
     } catch (e) {
-      debugPrint('error -getStudyPlan: $e');
+      debugPrint('error on getStudyPlan from api: $e');
     }
     return null;
   }

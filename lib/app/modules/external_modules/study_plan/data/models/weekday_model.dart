@@ -21,7 +21,7 @@ enum WeekDay {
   const WeekDay(this.description);
 }
 
-String dataToString(WeekDay day) {
+String weekdayToString(WeekDay day) {
   switch (day) {
     case WeekDay.monday:
       return "Segunda";
