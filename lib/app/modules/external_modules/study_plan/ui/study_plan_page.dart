@@ -29,11 +29,15 @@ class StudyPlanPage extends StatelessWidget {
             ),
           ),
         ),
-        body: controller.isLoading
-            ? Center(child: CustomProgressDisplay())
-            : (controller.studyPlan?.plan == null
-                ? Center(child: Text('no_study_plan_info'.tr))
-                : _tabViewWidget(controller.getStudyPlan())),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: AppColors.darkBlueToBlackGradient(),
+          ),
+          child: controller.isLoading
+          ? Center(child: CustomProgressDisplay())
+          : (controller.studyPlan?.plan == null
+              ? Center(child: Text('no_study_plan_info'.tr))
+              : _tabViewWidget(controller.getStudyPlan()))),
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.darkBlue(),
           child: const Icon(Icons.refresh, color: Colors.white,),
@@ -62,7 +66,7 @@ class StudyPlanPage extends StatelessWidget {
           child: SizedBox.expand(
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: AppColors.lightBlue(),
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: ListView.separated(

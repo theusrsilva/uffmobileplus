@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:uffmobileplus/app/data/services/HTTPService.dart';
 import 'package:uffmobileplus/app/data/services/external_study_plan_service.dart';
 import '../models/study_plan_model.dart';
 import 'package:get/get.dart';
 
 class StudyPlanProvider {
+  final HTTPService _httpService = Get.find<HTTPService>();
   final ExternalStudyPlanService _studyPlanService = Get
       .find<ExternalStudyPlanService>();
 
@@ -39,25 +41,28 @@ class StudyPlanProvider {
       path: '/umm/v2/umplus/get_studyplan',
       scheme: 'https',
       queryParameters: {
-        'iduff': iduff,
         'vinculo': bond,
       }
     );
 
     try {
-      final response = await http.get(
-        url,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        },
-      );
+      http.Response? response = await _httpService.get(url);
+      // final response = await http.get(
+      //   url,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": "Bearer $token",
+      //   },
+      // );
 
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-        return StudyPlanModel.fromJson(jsonResponse);
-      } else {
-        debugPrint('StudyPlan api failed.\n Status Code: ${response.statusCode}');
+      if (response != null) {
+        if (response.statusCode == 200) {
+          Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+          return StudyPlanModel.fromJson(jsonResponse);
+        } else {
+          debugPrint(
+              'StudyPlan api failed.\n Status Code: ${response.statusCode}');
+        }
       }
     } catch (e) {
       debugPrint('error -getStudyPlan: $e');
