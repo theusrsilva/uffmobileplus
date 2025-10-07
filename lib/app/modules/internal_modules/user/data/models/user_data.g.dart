@@ -27,13 +27,14 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       bond: fields[7] as String?,
       textoQrCodeCarteirinha: fields[8] as String?,
       accessToken: fields[9] as String?,
+      bondId: fields[10] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserData obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -53,7 +54,9 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..writeByte(8)
       ..write(obj.textoQrCodeCarteirinha)
       ..writeByte(9)
-      ..write(obj.accessToken);
+      ..write(obj.accessToken)
+      ..writeByte(10)
+      ..write(obj.bondId);
   }
 
   @override

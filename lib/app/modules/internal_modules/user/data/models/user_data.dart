@@ -36,6 +36,9 @@ class UserData extends HiveObject {
   @HiveField(9)
   String? accessToken;
 
+  @HiveField(10)
+  String? bondId;
+
 
   UserData({
     this.name,
@@ -48,6 +51,7 @@ class UserData extends HiveObject {
     this.bond,
     this.textoQrCodeCarteirinha,
     this.accessToken,
+    this.bondId
   });
 
 

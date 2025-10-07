@@ -22,12 +22,8 @@ class ExternalStudyPlanService extends GetxService {
     return _userData!.matricula ?? "-";
   }
 
-  String getUserIdUFF() {
-    return _userData!.iduff ?? "-";
-  }
-
-  String getUserBond() {
-    return _userData!.bond ?? "";
+  String getUserBondId() {
+    return _userData!.bondId ?? "";
   }
 
   Future<String?> getAccessToken() async {

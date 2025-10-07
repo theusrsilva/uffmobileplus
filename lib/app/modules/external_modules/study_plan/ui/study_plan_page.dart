@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_tab_view/infinite_scroll_tab_view.dart';
 import 'package:uffmobileplus/app/modules/external_modules/study_plan/data/models/discipline_model.dart';
+import 'package:uffmobileplus/app/modules/external_modules/study_plan/data/models/weekday_model.dart';
 import '../../../../utils/color_pallete.dart';
 import '../../../../utils/ui_components/custom_progress_display.dart';
 import '../controller/study_plan_controller.dart';
@@ -30,14 +31,14 @@ class StudyPlanPage extends StatelessWidget {
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
-            gradient: AppColors.darkBlueToBlackGradient(),
-          ),
-          child: controller.isLoading
-          ? Center(child: CustomProgressDisplay())
-          : (controller.studyPlan?.plan == null
-              ? Center(child: Text('no_study_plan_info'.tr))
-              : _tabViewWidget(controller.getStudyPlan()))),
+            decoration: BoxDecoration(
+              gradient: AppColors.darkBlueToBlackGradient(),
+            ),
+            child: controller.isLoading
+                ? Center(child: CustomProgressDisplay())
+                : (controller.studyPlan?.plan == null
+                ? Center(child: Text('no_study_plan_info'.tr))
+                : _tabViewWidget(controller.getStudyPlan()))),
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.darkBlue(),
           child: const Icon(Icons.refresh, color: Colors.white,),
@@ -48,13 +49,15 @@ class StudyPlanPage extends StatelessWidget {
   }
 
   _tabViewWidget(studyPlan) {
-    InfiniteScrollTabView(
+    return InfiniteScrollTabView(
+      backgroundColor: Colors.white,
       contentLength: studyPlan.length,
       indicatorColor: AppColors.mediumBlue(),
       separator: BorderSide(color: AppColors.darkBlue(), width: 1.0),
       tabBuilder: (index, isSelected) {
+        WeekDay day = studyPlan.keys.elementAt(index);
         return Text(
-          studyPlan.keys.elementAt(index),
+          dataToString(day),
           style: isSelected
               ? TextStyle(color: AppColors.mediumBlue())
               : const TextStyle()
@@ -66,8 +69,7 @@ class StudyPlanPage extends StatelessWidget {
           child: SizedBox.expand(
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(8.0),
+                gradient: AppColors.darkBlueToBlackGradient(),
               ),
               child: ListView.separated(
                 separatorBuilder: (___,__) => Divider(thickness: 2.0, color: AppColors.darkBlue(),),
@@ -77,12 +79,12 @@ class StudyPlanPage extends StatelessWidget {
                   Discipline subject = studyPlan.values.elementAt(index)[innerIndex];
                   return Column(
                     children: [
-                      Text(subject.title ?? ""),
-                      Row(children: [Text('class_code'.tr), Text(': ${subject.codClass}')]),
-                      Row(children: [Text('subject_code'.tr), Text(': ${subject.cod}')]),
-                      Row(children: [Text('time'.tr),
-                        Text(': ${subject.startTime} às ${subject.endTime}')]),
-                      Row(children: [const Text('Status'), Text(': ${subject.status}')]),
+                      Text(subject.title ?? "", style: TextStyle(color: Colors.white)),
+                      Row(children: [Text('class_code'.tr, style: TextStyle(color: Colors.white)), Text(': ${subject.codClass}', style: TextStyle(color: Colors.white))]),
+                      Row(children: [Text('subject_code'.tr, style: TextStyle(color: Colors.white)), Text(': ${subject.cod}', style: TextStyle(color: Colors.white))]),
+                      Row(children: [Text('time'.tr, style: TextStyle(color: Colors.white)),
+                        Text(': ${subject.startTime} às ${subject.endTime}', style: TextStyle(color: Colors.white))]),
+                      Row(children: [const Text('Status', style: TextStyle(color: Colors.white)), Text(': ${subject.status}', style: TextStyle(color: Colors.white))]),
                     ],
                   );
                 },

@@ -20,3 +20,25 @@ enum WeekDay {
   final String description;
   const WeekDay(this.description);
 }
+
+String dataToString(WeekDay day) {
+  switch (day) {
+    case WeekDay.monday:
+      return "Segunda";
+
+    case WeekDay.tuesday:
+      return "Terça";
+
+    case WeekDay.wednesday:
+      return "Quarta";
+
+    case WeekDay.thursday:
+      return "Quinta";
+
+    case WeekDay.friday:
+      return "Sexta";
+
+    case WeekDay.saturday:
+      return "Sábado";
+  }
+}

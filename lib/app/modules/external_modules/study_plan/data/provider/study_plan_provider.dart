@@ -32,37 +32,32 @@ class StudyPlanProvider {
   }
 
   Future<StudyPlanModel?> _getStudyPlanData() async {
-    final bond = _studyPlanService.getUserBond();
-    final iduff = _studyPlanService.getUserIdUFF();
-    final token = await _studyPlanService.getAccessToken();
+    final bondId = _studyPlanService.getUserBondId();
+    final accessToken = await _studyPlanService.getAccessToken();
 
     Uri url = Uri(
       host: 'app.uff.br',
       path: '/umm/v2/umplus/get_studyplan',
       scheme: 'https',
       queryParameters: {
-        'vinculo': bond,
+        'vinculo': bondId,
       }
     );
 
     try {
-      http.Response? response = await _httpService.get(url);
-      // final response = await http.get(
-      //   url,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": "Bearer $token",
-      //   },
-      // );
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
 
-      if (response != null) {
-        if (response.statusCode == 200) {
-          Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-          return StudyPlanModel.fromJson(jsonResponse);
-        } else {
-          debugPrint(
-              'StudyPlan api failed.\n Status Code: ${response.statusCode}');
-        }
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        return StudyPlanModel.fromJson(jsonResponse);
+      } else {
+        debugPrint(
+            'StudyPlan api failed.\n Status Code: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('error -getStudyPlan: $e');

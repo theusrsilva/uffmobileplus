@@ -38,6 +38,7 @@ class UserDataController extends GetxController {
       dataValidadeMatricula: (await getSaciData())[1],
       textoQrCodeCarteirinha: (await getSaciData())[0],
       accessToken: await _auth.getAccessToken(),
+      bondId: userUmm.activeBond?.objects!.outerObject![1].innerObjects![0].vinculacao!.id,
     );
 
     return await _userDataRepository.saveUserData(userData);

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:uffmobileplus/app/modules/external_modules/study_plan/data/models/discipline_model.dart';
 import 'package:uffmobileplus/app/modules/external_modules/study_plan/data/models/weekday_model.dart';
@@ -17,9 +18,11 @@ class StudyPlanModel extends HiveObject {
       return;
     }
 
+    plan = {};
     for (var day in WeekDay.values) {
       final data = json['plan']['dias'];
-      plan?[day] = _getDisciplinesByDay(data[day.description]);
+      final list = _getDisciplinesByDay(data[day.description]);
+      plan![day] = list;
     }
   }
 
