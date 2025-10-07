@@ -7,7 +7,6 @@ class RadioController extends GetxController {
   final Rx<PlaybackState> playbackState = PlaybackState.paused.obs;
   set playbackState(value) => playbackState.value = value;
 
-  // TODO: metadata com caracteres especiais estão mal formados.
   final metadata = Metadata(artist: 'Unknown song', title: 'Unknown artist').obs;
   set metadata(value) => metadata.value = value;
 
