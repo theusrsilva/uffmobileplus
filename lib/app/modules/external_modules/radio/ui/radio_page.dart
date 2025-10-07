@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marquee/marquee.dart';
+import 'package:radio_player/radio_player.dart';
 import 'package:uffmobileplus/app/modules/external_modules/radio/controller/radio_controller.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
 
@@ -17,7 +19,7 @@ class Radio extends StatelessWidget {
           slivers: [
             SliverAppBar(
               foregroundColor: Colors.white,
-              // TODO: traduzir
+              // TODO: traduzir?
               // TODO: essa string deveria vir de outro lugar?
               title: Text("Radio Pop Goiaba"),
               centerTitle: true,
@@ -35,7 +37,19 @@ class Radio extends StatelessWidget {
                 ),
               ],
             ),
-            PlayPauseButton() 
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    //Track(),
+                    PlayPauseButton(),
+                    Track()
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -48,16 +62,38 @@ class PlayPauseButton extends GetView<RadioController> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: GestureDetector(
-        onTap: () => controller.toogleState(),
-        child: Obx(() => Icon(
-            controller.isPlaying.value ? Icons.pause : Icons.play_arrow,
-            color: Colors.white,
-            size: 80,
+    return GestureDetector(
+      onTap: () => controller.toggleState(),
+      child: Obx(() => Icon(
+        controller.playbackState.value == PlaybackState.playing
+        ? Icons.pause
+        : Icons.play_arrow,
+        color: Colors.white,
+        size: 120
+      )
+      )
+    );
+  }
+}
+
+class Track extends GetView<RadioController> {
+  const Track({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => SizedBox(
+        height: 100,
+        child: Marquee(
+          text: controller.showMetadata(),
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white, 
+            //fontWeight: FontWeight.bold
           ),
-        )
-      ),
+          blankSpace: 100,
+        ),
+      )
     );
   }
 }

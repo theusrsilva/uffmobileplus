@@ -35,6 +35,7 @@ dependencies:
   package_info_plus: ^9.0.0
   qr_flutter: ^4.1.0
   radio_player: ^2.2.1
+  marquee: ^2.3.0
 
 dev_dependencies:
   flutter_test:
