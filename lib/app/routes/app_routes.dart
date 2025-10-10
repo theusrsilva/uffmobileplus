@@ -23,4 +23,7 @@ abstract class Routes {
 
   //Plano de Estudos - Externo
   static const STUDY_PLAN = '/plano_estudos';
+
+  //Radio Pop Goiaba
+  static const RADIO = '/radio';
 }

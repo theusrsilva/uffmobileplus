@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/binding/carteirinha_digital_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/radio/bindings/radio_bindings.dart';
+import 'package:uffmobileplus/app/modules/external_modules/radio/ui/radio_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/bindings/catraca_online_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/catraca_online_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/resultado_detalhado_page.dart';
@@ -132,16 +134,15 @@ abstract class AppPages {
         UserUmmBindings(),
         UserIduffBindings(),
         CarteirinhaDigitalBindings(),
+        UserDataBindings(),
       ],
     ),
 
-    // Plano de Estudos - Externo
+    // Radio
     GetPage(
-      name: Routes.STUDY_PLAN,
-      page: () => StudyPlanPage(),
-      bindings: [
-        StudyPlanBindings(),
-      ],
+      name: Routes.RADIO,
+      page: () => Radio(),
+      bindings: [RadioBindings()],
     ),
   ];
 }
