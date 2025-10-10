@@ -137,6 +137,12 @@ abstract class AppPages {
         UserDataBindings(),
       ],
     ),
+    // Plano de Estudos - Externo
+    GetPage(
+      name: Routes.STUDY_PLAN,
+      page: () => StudyPlanPage(),
+      bindings: [StudyPlanBindings()],
+    ),
 
     // Radio
     GetPage(
