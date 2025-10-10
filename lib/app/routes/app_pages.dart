@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/binding/carteirinha_digital_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/ui/carteirinha_digital_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/radio/bindings/radio_bindings.dart';
+import 'package:uffmobileplus/app/modules/external_modules/radio/ui/radio_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/bindings/catraca_online_bindings.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/catraca_online_page.dart';
 import 'package:uffmobileplus/app/modules/external_modules/restaurante/modules/catraca_online/ui/pages/resultado_detalhado_page.dart';
@@ -12,6 +14,8 @@ import 'package:uffmobileplus/app/modules/external_modules/restaurante/ui/restau
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings/about_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/dashboard/ui/pages/settings/settings_page.dart';
+import 'package:uffmobileplus/app/modules/external_modules/study_plan/binding/study_plan_bindings.dart';
+import 'package:uffmobileplus/app/modules/external_modules/study_plan/ui/study_plan_page.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/lock_develop_mode/bindings/lock_develop_mode_binding.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/binding/login_bindings.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/bindings/auth_google_bindings.dart';
@@ -130,7 +134,21 @@ abstract class AppPages {
         UserUmmBindings(),
         UserIduffBindings(),
         CarteirinhaDigitalBindings(),
+        UserDataBindings(),
       ],
+    ),
+    // Plano de Estudos - Externo
+    GetPage(
+      name: Routes.STUDY_PLAN,
+      page: () => StudyPlanPage(),
+      bindings: [StudyPlanBindings()],
+    ),
+
+    // Radio
+    GetPage(
+      name: Routes.RADIO,
+      page: () => Radio(),
+      bindings: [RadioBindings()],
     ),
   ];
 }

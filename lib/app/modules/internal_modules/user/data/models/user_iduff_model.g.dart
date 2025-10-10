@@ -23,7 +23,8 @@ class UserIduffModelAdapter extends TypeAdapter<UserIduffModel> {
       photoUrl: fields[3] as String?,
       registration: fields[4] as String?,
       vinculacao: fields[5] as String?,
-    )..authData = fields[6] as AuthIduffModel?;
+      authData: fields[6] as AuthIduffModel?,
+    );
   }
 
   @override

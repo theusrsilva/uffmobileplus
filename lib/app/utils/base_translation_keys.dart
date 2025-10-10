@@ -22,4 +22,8 @@ abstract class BaseTranslationKeys {
   static const versionName = 'version_name';
   static const versionCode = 'version_code';
   static const device = 'device';
+  // Logout
+  static const String logoutButton = 'global.logout_button';
+  //instructions
+  static const String digitalIdInstructions = 'digital_id.instructions';
 }

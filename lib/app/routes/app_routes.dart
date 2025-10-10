@@ -20,4 +20,10 @@ abstract class Routes {
 
   //Carteirinha Digital - Externo
   static const CARTEIRINHA_DIGITAL = '/carteirinha_digital';
+
+  //Plano de Estudos - Externo
+  static const STUDY_PLAN = '/plano_estudos';
+
+  //Radio Pop Goiaba
+  static const RADIO = '/radio';
 }

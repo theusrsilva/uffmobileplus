@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none' 
 
-version: 6.0.0+600
+version: 6.1.0+601
 
 environment:
   sdk: ^3.9.0
@@ -32,10 +32,15 @@ dependencies:
   firebase_auth: ^6.0.2
   cloud_firestore: ^6.0.1
   firebase_core: ^4.1.0
+  infinite_scroll_tab_view: ^1.0.3
   package_info_plus: ^9.0.0
   qr_flutter: ^4.1.0
   intl: ^0.20.2
   mobile_scanner: ^7.1.2
+  rive: 0.13.20
+  http: ^1.5.0
+  radio_player: ^2.2.1
+  marquee: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -55,3 +60,4 @@ flutter:
     - assets/carteirinha_digital/
     - assets/carteirinha_digital/images/
     - assets/carteirinha_digital/icons/
+    - assets/radio/icons/radio.svg
