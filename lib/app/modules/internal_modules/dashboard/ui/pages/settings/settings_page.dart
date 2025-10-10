@@ -46,6 +46,7 @@ class SettingsPage extends StatelessWidget {
                     [
                       {'locale': Locale('pt', 'BR'), 'display': 'Português (BR)'},
                       {'locale': Locale('en', 'US'), 'display': 'English (US)'},
+                      {'locale': Locale('it', 'IT'), 'display': 'Italiano (IT)'},
                     ].map((item) {
                       Locale locale = item['locale'] as Locale;
                       String displayString = item['display'] as String;
