@@ -19,29 +19,12 @@ Future<void> main() async {
       debugShowCheckedModeBanner: true,
 
       title: "UFF Mobile Plus",
-      initialRoute: Routes.SPLASH, //Rota inicial
-      defaultTransition: Transition.fade, // Transição de telas padrão
-      //theme: pickCurrentAppTheme() , //Tema personalizado app
+      initialRoute: Routes.SPLASH,
+      defaultTransition: Transition.fade,
       translations: International(),
-      locale: Get.deviceLocale, // Seta o idioma padrão do app como o mesmo do dispositivo
-      fallbackLocale: Locale('pt', 'BR'), // Seta o idioma utilizado, caso o do dispositivo não seja suportado 
-      getPages: AppPages.pages, // Seu array de navegação contendo as rotas e suas pages
-      /*
-    translations: International(),
-    localizationsDelegates: const [
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      SfGlobalLocalizations.delegate
-    ],
-    supportedLocales: const [
-      Locale('pt'),
-      Locale('en'),
-      Locale('it'),
-      Locale('fr'),
-      Locale('es'),
-    ],
-    */
+      locale: Get.deviceLocale,
+      fallbackLocale: Locale('pt', 'BR'),
+      getPages: AppPages.pages,
     ),
   );
 }

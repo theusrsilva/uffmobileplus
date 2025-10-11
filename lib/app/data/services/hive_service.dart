@@ -8,30 +8,32 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
 
 class HiveService {
-  /// Initialize Hive + register all generated adapters.
   static Future<void> init() async {
-    await Hive.initFlutter();
-
-  // User UMM adapters
-  Hive.registerAdapter(AuthIduffModelAdapter());
-  Hive.registerAdapter(UserIduffModelAdapter());
-  Hive.registerAdapter(UserUmmModelAdapter());
-  Hive.registerAdapter(GradAdapter());
-  Hive.registerAdapter(MatriculasAdapter());
-  Hive.registerAdapter(CurriculosAdapter());
-  Hive.registerAdapter(IdentificacaoAdapter());
-  Hive.registerAdapter(PosAdapter());
-  Hive.registerAdapter(AlunosAdapter());
-  Hive.registerAdapter(ActiveBondAdapter());
-  Hive.registerAdapter(ObjectsAdapter());
-  Hive.registerAdapter(OuterObjectAdapter());
-  Hive.registerAdapter(UsuarioAdapter());
-  Hive.registerAdapter(InnerObjectAdapter());
-  Hive.registerAdapter(VinculacaoAdapter());
-  Hive.registerAdapter(UserGoogleModelAdapter());
-  Hive.registerAdapter(UserDataAdapter());
-  Hive.registerAdapter(WeekDayAdapter());
-    Hive.registerAdapter(DisciplineAdapter());
-    Hive.registerAdapter(StudyPlanModelAdapter());
+    try {
+      await Hive.initFlutter();
+      // User UMM adapters
+      Hive.registerAdapter(AuthIduffModelAdapter());
+      Hive.registerAdapter(UserIduffModelAdapter());
+      Hive.registerAdapter(UserUmmModelAdapter());
+      Hive.registerAdapter(GradAdapter());
+      Hive.registerAdapter(MatriculasAdapter());
+      Hive.registerAdapter(CurriculosAdapter());
+      Hive.registerAdapter(IdentificacaoAdapter());
+      Hive.registerAdapter(PosAdapter());
+      Hive.registerAdapter(AlunosAdapter());
+      Hive.registerAdapter(ActiveBondAdapter());
+      Hive.registerAdapter(ObjectsAdapter());
+      Hive.registerAdapter(OuterObjectAdapter());
+      Hive.registerAdapter(UsuarioAdapter());
+      Hive.registerAdapter(InnerObjectAdapter());
+      Hive.registerAdapter(VinculacaoAdapter());
+      Hive.registerAdapter(UserGoogleModelAdapter());
+      Hive.registerAdapter(UserDataAdapter());
+      Hive.registerAdapter(WeekDayAdapter());
+      Hive.registerAdapter(DisciplineAdapter());
+      Hive.registerAdapter(StudyPlanModelAdapter());
+    } catch (e, st) {
+      print('Hive init/register adapters error: $e\n$st');
+    }
   }
 }
