@@ -25,23 +25,33 @@ class UserDataController extends GetxController {
   }
 
   Future<String> saveUserData(UserUmmModel userUmm) async {
-    final userData = UserData(
-      name:
-          userUmm.grad?.matriculas?[0].identificacao?.nomesocial ??
-          userUmm.grad?.matriculas?[0].identificacao?.nome ??
-          "-",
-      nomesocial: userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
-      matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
-      iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
-      curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
-      fotoUrl: await _userIduffController.getPhotoUrl(),
-      dataValidadeMatricula: (await getSaciData())[1],
-      textoQrCodeCarteirinha: (await getSaciData())[0],
-      accessToken: await _auth.getAccessToken(),
-      bondId: userUmm.activeBond?.objects!.outerObject![1].innerObjects![0].vinculacao!.id,
-    );
-
-    return await _userDataRepository.saveUserData(userData);
+    try {
+      final userData = UserData(
+        name:
+            userUmm.grad?.matriculas?[0].identificacao?.nomesocial ??
+            userUmm.grad?.matriculas?[0].identificacao?.nome ??
+            "-",
+        nomesocial:
+            userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
+        matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
+        iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
+        curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
+        fotoUrl: await _userIduffController.getPhotoUrl(),
+        dataValidadeMatricula: (await getSaciData())[1],
+        textoQrCodeCarteirinha: (await getSaciData())[0],
+        accessToken: await _auth.getAccessToken(),
+        bondId: userUmm
+            .activeBond
+            ?.objects!
+            .outerObject![1]
+            .innerObjects![0]
+            .vinculacao!
+            .id,
+      );
+      return await _userDataRepository.saveUserData(userData);
+    } catch (e) {
+      return Future.error("Erro ao salvar dados do usuário: $e");
+    }
   }
 
   Future<String> updateQrData() async {
@@ -65,9 +75,7 @@ class UserDataController extends GetxController {
   }
 
   Future<List<dynamic>> getSaciData() async {
-    await _auth.refreshToken();
-
-    String? token = await _userIduffController.getAccessToken();
+    String? token = await _auth.getAccessToken();
     String? iduffUsuario = await _userIduffController.getIduff();
 
     var uri = Uri.https(

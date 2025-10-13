@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:uffmobileplus/app/utils/color_pallete.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/services/auth_iduff_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_iduff_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_umm_controller.dart';
@@ -12,13 +15,19 @@ class AuthIduffController extends GetxController {
   late final UserUmmController _userUmmController;
   late final UserDataController _userDataController;
   late final UserIduffController _userIduffController;
+  RxBool isLoading = false.obs;
+  late final bool isLogin;
+  final int _timeoutSeconds = 10;
 
   @override
   void onInit() {
     _userUmmController = Get.find<UserUmmController>();
     _userDataController = Get.find<UserDataController>();
     _userIduffController = Get.find<UserIduffController>();
-
+    isLogin = Get.arguments as bool? ?? false;
+    if (isLogin) {
+      login();
+    }
     super.onInit();
   }
 
@@ -26,42 +35,165 @@ class AuthIduffController extends GetxController {
     Get.offAndToNamed(Routes.LOGIN);
   }
 
-  loginFailed() {
-    // backToLogin();
+  loginFailed(String message) {
+    isLoading.value = false;
+    const email = 'atendimento@id.uff.br';
+
     Get.dialog(
-      CupertinoAlertDialog(
-        title: const Text("Ops..."),
-        content: const Text("Login não efetuado"),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            onPressed: () => Get.offAllNamed(Routes.LOGIN),
-            child: const Text("OK"),
+      Center(
+        child: Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              gradient: AppColors.darkBlueToBlackGradient(),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: const [
+                    Icon(
+                      CupertinoIcons.exclamationmark_circle,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 10),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  message,
+                  style: const TextStyle(color: Colors.white70, fontSize: 30),
+                ),
+                const SizedBox(height: 20),
+
+                GestureDetector(
+                  onTap: () async {
+                    await Clipboard.setData(const ClipboardData(text: email));
+                    Get.snackbar(
+                      'Copiado',
+                      'E-mail copiado para a área de transferência',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.black.withOpacity(0.75),
+                      colorText: Colors.white,
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 12,
+                    ),
+                    margin: const EdgeInsets.only(top: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white10,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(
+                          CupertinoIcons.mail_solid,
+                          color: Colors.white70,
+                          size: 18,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'atendimento@id.uff.br',
+                          style: TextStyle(
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const SizedBox(width: 8),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white24,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () {
+                        _userIduffController.deleteUserIduffModel();
+                        Get.offAllNamed(Routes.LOGIN);
+                      },
+                      child: const Text(
+                        'OK',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
+      barrierDismissible: true,
     );
   }
 
   loginSuccessful() async {
-    _userIduffController.updateIsLogged(true);
-
     String? iduff = await _userIduffController.getIduff();
     final userUmm = await _userUmmController.getUserData(iduff);
 
     await _userUmmController.saveUserUmm(userUmm);
     await _userDataController.saveUserData(userUmm);
-
+    isLoading.value = false;
     Get.offAllNamed(Routes.HOME);
   }
 
-  login() {
-    _authIduffService
-        .authenticate(Get.context)
-        .then((loggedIn) => loggedIn ? loginSuccessful() : loginFailed());
+  login() async {
+    isLoading.value = true;
+    try {
+      final result = await _authIduffService
+          .authenticate(Get.context)
+          .timeout(
+            Duration(seconds: _timeoutSeconds),
+            onTimeout: () => AuthResult(
+              false,
+              "Tempo de autenticação esgotado. Tente novamente mais tarde.Se o problema persistir, entre em contato com o suporte:",
+            ),
+          );
+      if (result.success) {
+        loginSuccessful();
+      } else {
+        loginFailed(result.message);
+      }
+    } catch (e) {
+      loginFailed(
+        "Erro desconhecido. Tente novamente mais tarde. Se o problema persistir, entre em contato com o suporte:",
+      );
+    }
   }
 
   Future<bool> tryLogin() async {
-    return await _authIduffService.tryLogin();
+    return await _authIduffService.tryLogin().timeout(
+      Duration(seconds: _timeoutSeconds),
+      onTimeout: () {
+        return false;
+      },
+    );
   }
 }

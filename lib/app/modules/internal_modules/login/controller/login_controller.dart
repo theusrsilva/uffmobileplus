@@ -4,22 +4,19 @@ import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class LoginController extends GetxController {
   bool showQrCode = false;
-  late final _loginGoogleController;
-  /*updateShowQrCode() async {
-    debugPrint("updateShowQrCode");
-    showQrCode = storageService.read("card_information") != null;
-    update();
-  }*/
+  late final AuthGoogleController _loginGoogleController;
 
   @override
   onInit() {
-    //updateShowQrCode();
     _loginGoogleController = Get.find<AuthGoogleController>();
     super.onInit();
   }
 
   loginIDUFF() {
-    Get.offAllNamed(Routes.AUTH);
+    Get.offAllNamed(
+      Routes.AUTH,
+      arguments: true,
+    ); //Esse argumento é para iniciar a função de login automaticamente apenas quando o usuario aperta em login com iduff
   }
 
   loginGoogle() {

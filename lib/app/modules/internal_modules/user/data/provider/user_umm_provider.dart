@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
 import 'package:uffmobileplus/app/config/secrets.dart';
-import 'package:uffmobileplus/app/data/services/HTTPService.dart';
 
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_umm_model.dart';
 
@@ -21,11 +20,8 @@ class UserUMMProvider {
     );
 
     try {
-      final apiResponse = await Get.find<HTTPService>().get(url);
-      if (apiResponse == null) return UserUmmModel();
+      final apiResponse = await http.get(url);
 
-      // Trabalha com a resposta dinamicamente para evitar conflito entre
-      // package:http.Response e get_connect Response.
       final statusCode = apiResponse.statusCode;
       final body = apiResponse.body;
 

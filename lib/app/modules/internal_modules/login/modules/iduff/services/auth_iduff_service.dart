@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:uffmobileplus/app/config/secrets.dart';
-import 'package:uffmobileplus/app/data/services/HTTPService.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/iduff/utils/auth_client.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_iduff_controller.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user_iduff_model.dart';
@@ -29,7 +28,6 @@ class OAuth2Info {
 
 class AuthIduffService {
   final FlutterAppAuth appAuth = FlutterAppAuth();
-  bool isAuthenticated = false;
 
   UserIduffController get _userIduffController =>
       Get.find<UserIduffController>();
@@ -68,15 +66,14 @@ class AuthIduffService {
     }
   }
 
-  Future<bool> authenticate(BuildContext? context) async {
-    isAuthenticated = await authorize();
-    return isAuthenticated;
+  Future<AuthResult> authenticate(BuildContext? context) async {
+    AuthResult authResult = await authorize();
+    return authResult;
   }
 
-  Future<bool> authorize() async {
+  Future<AuthResult> authorize() async {
     TokenResponse? tokenResponse;
     AuthorizationResponse? authorizationResponse;
-    //SharedUser? sharedUser = GetIt.I<SharedUser>();
     debugPrint("calling authorize");
     try {
       //Troca o refresh token por um novo access token quando o atual expira, sem precisar fazer login completo novamente.
@@ -94,23 +91,24 @@ class AuthIduffService {
         debugPrint("Primeiro Acesso!");
 
         authorizationResponse = await _getAuthorization();
-        if (authorizationResponse == null) return false;
+        if (authorizationResponse == null)
+          return AuthResult(false, ErrorMessage.erro001);
 
         tokenResponse = await _getAccessToken(authorizationResponse);
-        if (tokenResponse == null) return false;
+        if (tokenResponse == null)
+          return AuthResult(false, ErrorMessage.erro002);
 
         debugPrint("Passou pelo novo acesso");
       }
     } catch (e) {
       debugPrint("error on authorize: $e");
-      return false;
+      return AuthResult(false, ErrorMessage.erro003);
     }
 
     // Essas linhas configuram o sistema para que todas as futuras chamadas às APIs da UFF sejam automaticamente autenticadas
     client = AuthenticatedClient({
       "Authorization": "Bearer ${tokenResponse.accessToken}",
     });
-    Get.put(HTTPService(), permanent: true);
 
     return _setInfo(tokenResponse, authorizationResponse);
   }
@@ -180,11 +178,12 @@ class AuthIduffService {
     client = AuthenticatedClient({
       "Authorization": "Bearer ${tokenResponse.accessToken}",
     });
-    Get.put(HTTPService(), permanent: true);
-    return _setInfo(tokenResponse, null);
+
+    AuthResult authResult = await _setInfo(tokenResponse, null);
+    return authResult.success;
   }
 
-  Future<bool> _setInfo(
+  Future<AuthResult> _setInfo(
     TokenResponse tokenResponse,
     AuthorizationResponse? authorizationResponse,
   ) async {
@@ -225,10 +224,10 @@ class AuthIduffService {
       if (userResult != "success") {
         debugPrint("Erro ao salvar UserAuth: $userResult");
       }
-      return true;
+      return AuthResult(true, "success");
     } catch (e) {
       debugPrint("ERRO EM Authorize: $e");
-      return false;
+      return AuthResult(false, ErrorMessage.erro004);
     }
   }
 
@@ -297,8 +296,8 @@ class AuthIduffService {
       }
     }
     if (tokenResponse == null) return false;
-    Get.put(HTTPService(), permanent: true);
-    return _setInfo(tokenResponse, null);
+    AuthResult authResult = await _setInfo(tokenResponse, null);
+    return authResult.success;
   }
 
   Future<String?> getAccessToken() async {
@@ -307,4 +306,21 @@ class AuthIduffService {
     // Busca o access token salvo no UserIduffController
     return await _userIduffController.getAccessToken();
   }
+}
+
+class ErrorMessage {
+  static const String erro001 =
+      'Não foi possível validar suas credenciais neste momento. Por favor, tente novamente. Caso o erro persistir, informe o código 001 ao nosso suporte:';
+  static const String erro002 =
+      'Ocorreu um erro ao concluir o processo de autenticação. Por favor, inicie o login novamente. Caso o erro persistir, informe o código 002 ao nosso suporte:';
+  static const String erro003 =
+      "Ocorreu um erro inesperado no sistema de autenticação. Por favor, tente novamente.  Caso o erro persistir, informe o código 003 ao nosso suporte:";
+  static const String erro004 =
+      "Houve um problema ao carregar as informações do seu perfil. Por favor, tente fazer o login novamente. Se o erro persistir, informe o código 004 ao nosso suporte:";
+}
+
+class AuthResult {
+  final bool success;
+  final String message;
+  const AuthResult(this.success, this.message);
 }
