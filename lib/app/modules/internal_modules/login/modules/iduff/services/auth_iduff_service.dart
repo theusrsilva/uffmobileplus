@@ -91,12 +91,27 @@ class AuthIduffService {
         debugPrint("Primeiro Acesso!");
 
         authorizationResponse = await _getAuthorization();
-        if (authorizationResponse == null)
+        if (authorizationResponse == null) {
           return AuthResult(false, ErrorMessage.erro001);
+        }
+        bool accessTokenTimeOut = false;
 
-        tokenResponse = await _getAccessToken(authorizationResponse);
-        if (tokenResponse == null)
+        tokenResponse = await _getAccessToken(authorizationResponse).timeout(
+          Duration(seconds: 10),
+          onTimeout: () {
+            accessTokenTimeOut = true;
+            return null;
+          },
+        );
+        if (tokenResponse == null) {
+          if (accessTokenTimeOut) {
+            return AuthResult(
+              false,
+              "Tempo de autenticação esgotado. Tente novamente mais tarde. Se o problema persistir, entre em contato com o suporte:",
+            );
+          }
           return AuthResult(false, ErrorMessage.erro002);
+        }
 
         debugPrint("Passou pelo novo acesso");
       }
