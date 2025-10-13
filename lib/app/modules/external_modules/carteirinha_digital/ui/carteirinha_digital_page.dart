@@ -2,254 +2,251 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:uffmobileplus/app/modules/external_modules/carteirinha_digital/controller/carteirinha_digital_controller.dart';
 import 'package:uffmobileplus/app/utils/color_pallete.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:uffmobileplus/app/utils/ui_components/custom_progress_display.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class CarteirinhaDigitalPage extends StatelessWidget {
-  CarteirinhaDigitalPage({super.key});
+class CarteirinhaDigitalPage extends GetView<CarteirinhaDigitalController> {
+  const CarteirinhaDigitalPage({super.key});
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CarteirinhaDigitalController>(
-      builder: (controller) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            elevation: 8,
-            foregroundColor: Colors.white,
-            title: const Text("Carteirinha Digital"),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-            ),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: AppColors.appBarTopGradient(),
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {
-                  controller.updateQrCodeData();
-                },
-                icon: const Icon(Icons.refresh),
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 8,
+        foregroundColor: Colors.white,
+        title: const Text("Carteirinha Digital"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Atualizar',
+            onPressed: () {
+              controller.updateQrCodeData();
+            },
           ),
-          body: controller.isBusy
-              ? const Center(child: CircularProgressIndicator())
-              : Container(
-                  decoration: BoxDecoration(
-                    gradient: AppColors.darkBlueToBlackGradient(),
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView(
-                      children: [
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/carteirinha_digital/images/uff_logo.png",
-                                height: 30,
-                                color: Colors.white,
-                              ),
-                              const SizedBox(width: 8),
-                              const Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Universidade",
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Federal",
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Fluminense",
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        controller.getUserPhotoUrl().length > 0
-                            ? SizedBox(
-                                height: 140,
-                                child: CachedNetworkImage(
-                                  imageUrl: controller.getUserPhotoUrl(),
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) =>
-                                          CircularProgressIndicator(
-                                            value: downloadProgress.progress,
-                                            color: Colors.white,
-                                          ),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                              )
-                            : const SizedBox(),
-                        const SizedBox(height: 10),
-                        Column(
-                          children: [
-                            Text(
-                              controller.getUserName() ?? "-",
+        ],
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(gradient: AppColors.appBarTopGradient()),
+        ),
+      ),
 
-                              style: const TextStyle(color: Colors.white),
+      body: Obx(
+        () => controller.isBusy.value
+            ? const Center(child: CustomProgressDisplay())
+            : Container(
+                decoration: BoxDecoration(
+                  gradient: AppColors.darkBlueToBlackGradient(),
+                ),
+                margin: const EdgeInsets.symmetric(horizontal: 0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                    children: [
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/carteirinha_digital/images/uff_logo.png",
+                              height: 30,
+                              color: Colors.white,
                             ),
-                            Text(
-                              "Documento: ${controller.getUserIdUFF()}",
-                              style: const TextStyle(color: Colors.white),
+                            const SizedBox(width: 8),
+                            const Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Universidade",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  "Federal",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  "Fluminense",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                          ),
-                          constraints: const BoxConstraints(minHeight: 300),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 16,
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/carteirinha_digital/images/brasao_uff.png",
-                                height: 100,
+                      ),
+                      controller.getUserPhotoUrl().length > 0
+                          ? SizedBox(
+                              height: 140,
+                              child: CachedNetworkImage(
+                                imageUrl: controller.getUserPhotoUrl(),
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(
+                                          value: downloadProgress.progress,
+                                          color: Colors.white,
+                                        ),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 14),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      controller.getUserBond(),
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blue[900],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Divider(height: 14, color: Colors.blue[800]),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                            )
+                          : const SizedBox(),
+                      const SizedBox(height: 10),
+                      Column(
+                        children: [
+                          Text(
+                            controller.getUserName() ?? "-",
+
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            "Documento: ${controller.getUserIdUFF()}",
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
+                        constraints: const BoxConstraints(minHeight: 300),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 16,
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "assets/carteirinha_digital/images/brasao_uff.png",
+                              height: 100,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 14),
+                              child: Row(
                                 children: [
-                                  Visibility(
-                                    visible: true,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Matricula",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          controller.getUserMatricula(),
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: true,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Validade",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          controller.getUserValidity(),
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                      ],
+                                  Text(
+                                    controller.getUserBond(),
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue[900],
                                     ),
                                   ),
                                 ],
                               ),
-                              Visibility(
-                                visible: true,
-                                child: Container(
-                                  margin: EdgeInsets.only(top: 10),
+                            ),
+                            Divider(height: 14, color: Colors.blue[800]),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Visibility(
+                                  visible: true,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Row(
-                                        children: [
-                                          Text(
-                                            "Curso",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
+                                      const Text(
+                                        "Matricula",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                       Text(
-                                        controller.getUserCourse(),
-                                        style: const TextStyle(fontSize: 15),
+                                        controller.getUserMatricula(),
+                                        style: TextStyle(fontSize: 15),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                margin: const EdgeInsets.only(
-                                  top: 40,
-                                  bottom: 36,
+                                Visibility(
+                                  visible: true,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Validade",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        controller.getUserValidity(),
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                width: 180,
-                                height: 180,
-                                child: qrCodeWidget(controller, context),
+                              ],
+                            ),
+                            Visibility(
+                              visible: true,
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Row(
+                                      children: [
+                                        Text(
+                                          "Curso",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      controller.getUserCourse(),
+                                      style: const TextStyle(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              validateButton(),
-                            ],
-                          ),
+                            ),
+                            Container(
+                              alignment: Alignment.bottomCenter,
+                              margin: const EdgeInsets.only(
+                                top: 40,
+                                bottom: 36,
+                              ),
+                              width: 180,
+                              height: 180,
+                              child: qrCodeWidget(controller, context),
+                            ),
+                            validateButton(),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-        );
-      },
+              ),
+      ),
     );
   }
 
@@ -323,12 +320,20 @@ class CarteirinhaDigitalPage extends StatelessWidget {
   ) {
     return Stack(
       children: [
-        QrImageView(data: controller.qrCodeData, version: QrVersions.auto),
+        Obx(
+          () => controller.isQrCodeLoading.value
+              ? Center(child: CircularProgressIndicator())
+              : QrImageView(
+                  data: controller.qrCodeData,
+                  version: QrVersions.auto,
+                ),
+        ),
+
         AnimatedOpacity(
-          opacity: controller.isExpired ? 1.0 : 0.0,
+          opacity: controller.isExpired.value ? 1.0 : 0.0,
           duration: const Duration(milliseconds: 400),
           child: Visibility(
-            visible: controller.isExpired,
+            visible: controller.isExpired.value,
             child: Align(
               alignment: Alignment.center,
               child: IconButton(
