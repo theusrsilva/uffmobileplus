@@ -40,7 +40,7 @@ class UserDataController extends GetxController {
         dataValidadeMatricula: (await getSaciData())[1],
         textoQrCodeCarteirinha: (await getSaciData())[0],
         bond:
-            userUmm
+             userUmm
                 .activeBond
                 ?.objects
                 ?.outerObject?[1]
@@ -48,13 +48,7 @@ class UserDataController extends GetxController {
                 .vinculacao
                 ?.vinculo ??
             "-",
-        bondId: userUmm
-            .activeBond
-            ?.objects!
-            .outerObject![1]
-            .innerObjects![0]
-            .vinculacao!
-            .id,
+        bondId: userUmm.activeBond?.objects!.outerObject![1].innerObjects![0].vinculacao!.id,
         gdiGroups: await getGdiGroups(
           userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "",
         ),
@@ -113,7 +107,6 @@ class UserDataController extends GetxController {
   Future<List<GdiGroups>> getGdiGroups(String iduff) async {
     String token = await _auth.getAccessToken() ?? "";
     List<GdiGroups> groups = await _userDataRepository.getGdiGroups(iduff, token);
-    print(groups);
     return groups;
   }
 }
