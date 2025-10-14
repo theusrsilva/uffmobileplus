@@ -28,13 +28,14 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       textoQrCodeCarteirinha: fields[8] as String?,
       accessToken: fields[9] as String?,
       bondId: fields[10] as String?,
+      gdiGroups: (fields[11] as List?)?.cast<GdiGroups>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, UserData obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..writeByte(9)
       ..write(obj.accessToken)
       ..writeByte(10)
-      ..write(obj.bondId);
+      ..write(obj.bondId)
+      ..writeByte(11)
+      ..write(obj.gdiGroups);
   }
 
   @override
@@ -66,6 +69,43 @@ class UserDataAdapter extends TypeAdapter<UserData> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is UserDataAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class GdiGroupsAdapter extends TypeAdapter<GdiGroups> {
+  @override
+  final int typeId = 31;
+
+  @override
+  GdiGroups read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return GdiGroups(
+      fields[0] as String?,
+      fields[1] as String?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, GdiGroups obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.gid)
+      ..writeByte(1)
+      ..write(obj.description);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GdiGroupsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

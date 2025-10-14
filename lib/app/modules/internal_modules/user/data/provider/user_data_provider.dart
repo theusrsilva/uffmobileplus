@@ -92,5 +92,30 @@ class UserDataProvider {
     }
   }
 
-  
+  Future<List<GdiGroups>> getGdiGroups(String iduff, String token) async {
+    
+    final path = '${Secrets.gdiGroupsPath}/$iduff${Secrets.gdiGroupsQuery}';
+    var uri = Uri.https(
+      Secrets.gdiGroupsHost,
+      path,
+    );
+    try{
+      final response = await http.get(
+        uri,
+        headers:{
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200){
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+        return jsonResponse.map((group) => GdiGroups.fromJson(group)).toList();
+      }
+    }
+    catch(e){
+      debugPrint("Erro ao buscar grupos GDI: $e");
+      return [];
+    }
+    return []; 
+  }
 }

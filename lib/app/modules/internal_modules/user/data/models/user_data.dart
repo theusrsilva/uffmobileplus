@@ -39,6 +39,8 @@ class UserData extends HiveObject {
   @HiveField(10)
   String? bondId;
 
+  @HiveField(11)
+  List<GdiGroups>? gdiGroups;
 
   UserData({
     this.name,
@@ -51,8 +53,10 @@ class UserData extends HiveObject {
     this.bond,
     this.textoQrCodeCarteirinha,
     this.accessToken,
-    this.bondId
-  });
+    this.bondId,
+    this.gdiGroups
+  }
+  );
 
 
   factory UserData.fromJson(Map<String, dynamic> json) {
@@ -67,6 +71,12 @@ class UserData extends HiveObject {
       bond: json['bond'] as String?,
       textoQrCodeCarteirinha: json['textoQrCodeCarteirinha'] as String?,
       accessToken: json['accessToken'] as String?,
+      bondId: json['bondId'] as String?,
+      gdiGroups: json['gdiGroups'] != null
+          ? (json['gdiGroups'] as List)
+              .map((group) => GdiGroups.fromJson(group))
+              .toList()
+          : null,
     );
   }
 
@@ -82,6 +92,31 @@ class UserData extends HiveObject {
       'bond': bond,
       'textoQrCodeCarteirinha': textoQrCodeCarteirinha,
       'accessToken': accessToken,
+      'bondId': bondId,
+      'gdiGroups': gdiGroups?.map((group) => {
+        'gid': group.gid,
+        'descricao': group.description,
+      }).toList(),
     };
+  }
+}
+
+@HiveType(typeId: 31)
+class GdiGroups {
+  @HiveField(0)
+  String? gid; //Id do grupo
+  @HiveField(1)
+  String? description;
+
+  GdiGroups(this.gid, this.description);
+
+  GdiGroups.fromJson(Map<String, dynamic> json) {
+    gid = json['gid'];
+    description = json['descricao'];
+  }
+
+  @override
+  String toString() {
+    return "Group(gid: $gid, descicao: $description)";
   }
 }

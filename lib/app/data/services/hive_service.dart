@@ -32,6 +32,7 @@ class HiveService {
       Hive.registerAdapter(WeekDayAdapter());
       Hive.registerAdapter(DisciplineAdapter());
       Hive.registerAdapter(StudyPlanModelAdapter());
+      Hive.registerAdapter(GdiGroupsAdapter());
     } catch (e, st) {
       print('Hive init/register adapters error: $e\n$st');
     }

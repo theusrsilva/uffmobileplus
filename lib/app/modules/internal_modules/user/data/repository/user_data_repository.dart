@@ -33,5 +33,7 @@ class UserDataRepository {
     return await _userDataProvider.updateQrData(textoQrCodeCarteirinha);
   }
 
-   
-}
+  Future<List<GdiGroups>> getGdiGroups(String iduff, String token) async {
+    return await _userDataProvider.getGdiGroups(iduff, token);
+  }
+  }
