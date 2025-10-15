@@ -8,6 +8,7 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_umm_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/user/controller/user_data_controller.dart';
+import 'package:uffmobileplus/app/utils/errors_mensages.dart';
 
 class AuthIduffController extends GetxController {
   final AuthIduffService _authIduffService = Get.find<AuthIduffService>();
@@ -158,11 +159,15 @@ class AuthIduffController extends GetxController {
   }
 
   loginSuccessful() async {
-    String? iduff = await _userIduffController.getIduff();
-    final userUmm = await _userUmmController.getUserData(iduff);
+    try {
+      String? iduff = await _userIduffController.getIduff();
+      final userUmm = await _userUmmController.getUserData(iduff);
+      await _userUmmController.saveUserUmm(userUmm);
+      await _userDataController.saveUserData(userUmm);
+    } catch (e) {
+      loginFailed(ErrorMessage.erro005);
+    }
 
-    await _userUmmController.saveUserUmm(userUmm);
-    await _userDataController.saveUserData(userUmm);
     isLoading.value = false;
     Get.offAllNamed(Routes.HOME);
   }

@@ -26,6 +26,11 @@ class UserDataController extends GetxController {
 
   Future<String> saveUserData(UserUmmModel userUmm) async {
     try {
+      final saciData = await getSaciData();
+      final textoQrCode = saciData[0];
+      final dataValidadeMatricula = saciData[1];
+      final iduff = userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "";
+
       final userData = UserData(
         name:
             userUmm.grad?.matriculas?[0].identificacao?.nomesocial ??
@@ -34,13 +39,13 @@ class UserDataController extends GetxController {
         nomesocial:
             userUmm.grad?.matriculas?[0].identificacao?.nomesocial ?? "-",
         matricula: userUmm.grad?.matriculas?[0].matricula ?? "-",
-        iduff: userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "-",
+        iduff: iduff,
         curso: userUmm.grad?.matriculas?[0].nomeCurso ?? "-",
         fotoUrl: await _userIduffController.getPhotoUrl(),
-        dataValidadeMatricula: (await getSaciData())[1],
-        textoQrCodeCarteirinha: (await getSaciData())[0],
+        dataValidadeMatricula: dataValidadeMatricula ?? "-",
+        textoQrCodeCarteirinha: textoQrCode ?? "-",
         bond:
-             userUmm
+            userUmm
                 .activeBond
                 ?.objects
                 ?.outerObject?[1]
@@ -48,12 +53,15 @@ class UserDataController extends GetxController {
                 .vinculacao
                 ?.vinculo ??
             "-",
-        bondId: userUmm.activeBond?.objects!.outerObject![1].innerObjects![0].vinculacao!.id,
-        gdiGroups: await getGdiGroups(
-          userUmm.grad?.matriculas?[0].identificacao?.iduff ?? "",
-        ),
+        bondId: userUmm
+            .activeBond
+            ?.objects!
+            .outerObject![1]
+            .innerObjects![0]
+            .vinculacao!
+            .id,
+        gdiGroups: await getGdiGroups(iduff),
         accessToken: await _auth.getAccessToken(),
-
       );
       return await _userDataRepository.saveUserData(userData);
     } catch (e) {
@@ -106,7 +114,10 @@ class UserDataController extends GetxController {
 
   Future<List<GdiGroups>> getGdiGroups(String iduff) async {
     String token = await _auth.getAccessToken() ?? "";
-    List<GdiGroups> groups = await _userDataRepository.getGdiGroups(iduff, token);
+    List<GdiGroups> groups = await _userDataRepository.getGdiGroups(
+      iduff,
+      token,
+    );
     return groups;
   }
 }
