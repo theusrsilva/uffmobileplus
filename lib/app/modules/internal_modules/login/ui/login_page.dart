@@ -47,19 +47,30 @@ class LoginPage extends GetView<LoginController> {
                     vertical: 75,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Visibility(
-                        visible: true, //controller.showQrCode,
-                        child: Tooltip(
-                          message: "QR Code Carteirinha",
-                          child: IconButton(
-                            onPressed: controller.goToCarteirinhaPage,
-                            icon: const Icon(
-                              Icons.qr_code_2,
-                              color: Colors.white,
-                              size: 36,
-                            ),
+                      Tooltip(
+                        message: "QR Code Carteirinha",
+                        child: InkWell(
+                          onTap: controller.goToCarteirinhaPage,
+                          borderRadius: BorderRadius.circular(8),
+                          child: Row(
+                            children: const [
+                              Icon(
+                                Icons.qr_code_2,
+                                color: Colors.white,
+                                size: 36,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Carteirinha digital',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -115,27 +126,33 @@ class LoginPage extends GetView<LoginController> {
                                               _LoginOptionSquare(
                                                 text: 'IdUFF',
                                                 color: Colors.blueAccent,
-                                                image: 'assets/images/uff_background2.png', 
+                                                image:
+                                                    'assets/images/uff_background2.png',
                                                 onTap: controller.loginIDUFF,
                                               ),
                                               _LoginOptionSquare(
                                                 text: 'Google',
                                                 color: Colors.redAccent,
-                                                image: 'assets/icons/google-icon.svg',
+                                                image:
+                                                    'assets/icons/google-icon.svg',
                                                 onTap: controller.loginGoogle,
                                               ),
                                               _LoginOptionSquare(
                                                 text: 'Sem Login',
                                                 color: Colors.green,
-                                                image: 'assets/icons/no-login-icon.svg',
+                                                image:
+                                                    'assets/icons/no-login-icon.svg',
                                                 svgColor: Colors.white,
-                                                onTap: (){}, //controller.loginSemLogin,
+                                                onTap: () {
+                                                  controller.loginAnonimous();
+                                                },
                                               ),
                                               _LoginOptionSquare(
                                                 text: 'GOV',
                                                 color: Colors.amber,
                                                 image: 'assets/icons/mini.png',
-                                                onTap: (){}, //controller.loginGOV,
+                                                onTap:
+                                                    () {}, //controller.loginGOV,
                                               ),
                                             ],
                                           ),
@@ -155,8 +172,8 @@ class LoginPage extends GetView<LoginController> {
                 // Versão
                 Padding(
                   padding: EdgeInsets.only(bottom: height / 20),
-                  child: const Text(
-                    '6.1.0',
+                  child: Text(
+                    controller.versionCode,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -277,9 +294,7 @@ class _LoginOptionSquare extends StatelessWidget {
               Container(
                 width: 64,
                 height: 64,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(shape: BoxShape.circle),
                 child: ClipOval(child: imageWidget),
               ),
               const SizedBox(height: 12),

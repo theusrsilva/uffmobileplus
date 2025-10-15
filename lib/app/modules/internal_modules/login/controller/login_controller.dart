@@ -1,14 +1,19 @@
 import 'package:get/get.dart';
+import 'package:uffmobileplus/app/data/services/um_infos_service.dart';
 import 'package:uffmobileplus/app/modules/internal_modules/login/modules/google/controller/auth_google_controller.dart';
 import 'package:uffmobileplus/app/routes/app_routes.dart';
 
 class LoginController extends GetxController {
   bool showQrCode = false;
+  late String versionCode;
   late final AuthGoogleController _loginGoogleController;
+  late UmInfosService _umInfosService;
 
   @override
   onInit() {
     _loginGoogleController = Get.find<AuthGoogleController>();
+    _umInfosService = Get.find<UmInfosService>();
+    versionCode = _umInfosService.version.value;
     super.onInit();
   }
 
@@ -28,6 +33,6 @@ class LoginController extends GetxController {
   }
 
   loginAnonimous() {
-    //Get.offAllNamed(Routes.DASHBOARD);
+    Get.offAllNamed(Routes.HOME);
   }
 }
