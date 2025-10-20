@@ -6,63 +6,91 @@ import 'package:uffmobileplus/app/modules/internal_modules/user/data/models/user
 import 'package:uffmobileplus/app/modules/internal_modules/user/data/repository/user_google_repository.dart';
 
 class AuthGoogleService {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  GoogleSignIn? _googleSignIn;
   final UserGoogleRepository _userRepository = UserGoogleRepository();
 
   AuthGoogleService();
 
   Future<UserGoogleModel?> signInGoogle() async {
-    var account = await _googleSignIn.signIn();
-    var b = await account!.authentication;
-    final authCredential = GoogleAuthProvider.credential(
-      accessToken: b.accessToken,
-      idToken: b.idToken,
-    );
     try {
-      var userCredential = await FirebaseAuth.instance.signInWithCredential(
-        authCredential,
-      );
+      UserCredential userCredential;
+
+      if (kIsWeb) {
+        final provider = GoogleAuthProvider();
+        provider.setCustomParameters({'prompt': 'select_account'});
+        userCredential = await FirebaseAuth.instance.signInWithPopup(provider);
+      } else {
+        final gs = _googleSignIn ??= GoogleSignIn(scopes: ['email']);
+        final account = await gs.signIn();
+        if (account == null) return null;
+        final tokens = await account.authentication;
+        final authCredential = GoogleAuthProvider.credential(
+          accessToken: tokens.accessToken,
+          idToken: tokens.idToken,
+        );
+        userCredential = await FirebaseAuth.instance.signInWithCredential(
+          authCredential,
+        );
+      }
+
+      final user = userCredential.user;
+      if (user == null || user.email == null) return null;
 
       return await _userRepository.createUserDoc(
-        userCredential.user!.email!,
-        userCredential.user!.displayName!,
-        userCredential.user!.uid,
-        userCredential.user!.photoURL!,
+        user.email!,
+        user.displayName ?? '-',
+        user.uid,
+        user.photoURL ?? '',
       );
     } catch (err) {
       debugPrint(err.toString());
+      return null;
     }
-    return null;
   }
 
   Future<UserGoogleModel?> trySignInGoogle() async {
-    var account = await _googleSignIn.signInSilently();
-    if (account == null) {
-      return null;
-    }
-    var b = await account.authentication;
-    final authCredential = GoogleAuthProvider.credential(
-      accessToken: b.accessToken,
-      idToken: b.idToken,
-    );
     try {
-      var userCredential = await FirebaseAuth.instance.signInWithCredential(
-        authCredential,
-      );
-      return await _userRepository.createUserDoc(
-        userCredential.user!.email!,
-        userCredential.user!.displayName!,
-        userCredential.user!.uid,
-        userCredential.user!.photoURL!,
-      );
+      if (kIsWeb) {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user == null || user.email == null) return null;
+        return await _userRepository.createUserDoc(
+          user.email!,
+          user.displayName ?? '-',
+          user.uid,
+          user.photoURL ?? '',
+        );
+      } else {
+        final gs = _googleSignIn ??= GoogleSignIn(scopes: ['email']);
+        final account = await gs.signInSilently();
+        if (account == null) return null;
+        final tokens = await account.authentication;
+        final authCredential = GoogleAuthProvider.credential(
+          accessToken: tokens.accessToken,
+          idToken: tokens.idToken,
+        );
+        final userCredential = await FirebaseAuth.instance.signInWithCredential(
+          authCredential,
+        );
+        final user = userCredential.user;
+        if (user == null || user.email == null) return null;
+        return await _userRepository.createUserDoc(
+          user.email!,
+          user.displayName ?? '-',
+          user.uid,
+          user.photoURL ?? '',
+        );
+      }
     } catch (err) {
       debugPrint(err.toString());
+      return null;
     }
-    return null;
   }
 
   logoutGoogle() async {
-    await _googleSignIn.signOut();
+    if (!kIsWeb) {
+      final gs = _googleSignIn ??= GoogleSignIn(scopes: ['email']);
+      await gs.signOut();
+    }
     await FirebaseAuth.instance.signOut();
   }
 }
